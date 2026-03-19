@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --merah: #dc2626;
+            --merah-tua: #b91c1c;
+            --kuning: #f59e0b;
+            --kuning-tua: #d97706;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff9f0;
+            color: #1f2937;
+        }
+        .gradient-primary {
+            background: linear-gradient(135deg, var(--merah) 0%, var(--kuning) 100%);
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(220,38,38,0.2);
+        }
+        /* Styling konten artikel */
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .post-content h2 {
+            color: var(--merah-tua);
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--kuning);
+            padding-left: 1rem;
+        }
+        .post-content h3 {
+            color: var(--kuning-tua);
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .post-content a {
+            color: var(--merah);
+            text-decoration: underline;
+        }
+        .post-content a:hover {
+            color: var(--kuning);
+        }
+        .post-content img {
+            border-radius: 1rem;
+            max-width: 100%;
+            height: auto;
+        }
+        .post-content blockquote {
+            background: #fef3c7;
+            border-left: 5px solid var(--kuning);
+            padding: 1rem 1.5rem;
+            font-style: italic;
+            margin: 1.5rem 0;
+        }
+        .post-content ul, .post-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .post-content li {
+            margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg fixed w-full z-50 border-b-4" style="border-image: linear-gradient(90deg, #dc2626, #f59e0b) 1;">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="/" class="text-2xl font-extrabold bg-gradient-to-r from-red-600 to-yellow-600 bg-clip-text text-transparent hover:opacity-80 transition">
+                    SIOMAI
+                </a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="text-gray-700 hover:text-red-600 font-medium">Beranda</a>
+                    <a href="/peraturan" class="text-gray-700 hover:text-red-600 font-medium">Peraturan/SE</a>
+                    <a href="/standar-harga" class="text-gray-700 hover:text-red-600 font-medium">Standar Harga</a>
+                    <a href="/realisasi" class="text-gray-700 hover:text-red-600 font-medium">Realisasi</a>
+                    <a href="/artikel" class="text-gray-700 hover:text-red-600 font-medium">Artikel</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Konten Utama -->
+    <main class="pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4">
+            {{ content }}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-red-400 mb-4">SIOMAI</h3>
+                    <p class="text-gray-400 text-sm">Sistem Informasi ProDamai Kota Magelang.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-yellow-400">Tautan</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="/" class="hover:text-yellow-400">Beranda</a></li>
+                        <li><a href="/peraturan" class="hover:text-yellow-400">Peraturan/SE</a></li>
+                        <li><a href="/standar-harga" class="hover:text-yellow-400">Standar Harga</a></li>
+                        <li><a href="/realisasi" class="hover:text-yellow-400">Realisasi</a></li>
+                        <li><a href="/artikel" class="hover:text-yellow-400">Artikel</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-red-400">Kecamatan</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li>Magelang Utara</li>
+                        <li>Magelang Selatan</li>
+                        <li>Magelang Tengah</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-orange-400">Kontak</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><i class="fas fa-phone mr-2"></i> (0293) 123456</li>
+                        <li><i class="fas fa-envelope mr-2"></i> siomai@magelangkota.go.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2026 {{ site.author }}. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
