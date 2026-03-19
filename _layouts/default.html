@@ -30,7 +30,6 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 30px -10px rgba(220,38,38,0.2);
         }
-        /* Styling konten artikel */
         .post-content {
             font-size: 1.1rem;
             line-height: 1.8;
@@ -67,13 +66,6 @@
             font-style: italic;
             margin: 1.5rem 0;
         }
-        .post-content ul, .post-content ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .post-content li {
-            margin-bottom: 0.25rem;
-        }
     </style>
 </head>
 <body>
@@ -108,16 +100,16 @@
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-xl font-bold text-red-400 mb-4">SIOMAI</h3>
-                    <p class="text-gray-400 text-sm">Sistem Informasi ProDamai Kota Magelang.</p>
+                    <p class="text-gray-400 text-sm">Sistem Informasi Program Pemberdayaan Masyarakat (PRODAMAI) Kota Magelang.</p>
                 </div>
                 <div>
                     <h4 class="font-bold mb-4 text-yellow-400">Tautan</h4>
                     <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="/" class="hover:text-yellow-400">Beranda</a></li>
-                        <li><a href="/peraturan" class="hover:text-yellow-400">Peraturan/SE</a></li>
-                        <li><a href="/standar-harga" class="hover:text-yellow-400">Standar Harga</a></li>
-                        <li><a href="/realisasi" class="hover:text-yellow-400">Realisasi</a></li>
-                        <li><a href="/artikel" class="hover:text-yellow-400">Artikel</a></li>
+                        <li><a href="{{ site.baseurl }}/" class="hover:text-yellow-400">Beranda</a></li>
+                        <li><a href="{{ site.baseurl }}/peraturan" class="hover:text-yellow-400">Peraturan/SE</a></li>
+                        <li><a href="{{ site.baseurl }}/standar-harga" class="hover:text-yellow-400">Standar Harga</a></li>
+                        <li><a href="{{ site.baseurl }}/realisasi" class="hover:text-yellow-400">Realisasi</a></li>
+                        <li><a href="{{ site.baseurl }}/artikel" class="hover:text-yellow-400">Artikel</a></li>
                     </ul>
                 </div>
                 <div>

@@ -44,7 +44,7 @@ title: Beranda
             <h3 class="text-xl font-bold text-red-600">Peraturan / SE</h3>
         </div>
         <p class="text-gray-600 mb-4">Kumpulan Surat Edaran, Juknis, dan dokumen pendukung PRODAMAI.</p>
-        <a href="/peraturan" class="inline-flex items-center text-red-600 font-semibold">
+        <a href="{{ site.baseurl }}/peraturan" class="inline-flex items-center text-red-600 font-semibold">
             Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
         </a>
     </div>
@@ -57,7 +57,7 @@ title: Beranda
             <h3 class="text-xl font-bold text-yellow-600">Standar Harga</h3>
         </div>
         <p class="text-gray-600 mb-4">Informasi standar biaya untuk kegiatan fasilitasi, transportasi, dll.</p>
-        <a href="/standar-harga" class="inline-flex items-center text-yellow-600 font-semibold">
+        <a href="{{ site.baseurl }}/standar-harga" class="inline-flex items-center text-yellow-600 font-semibold">
             Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
         </a>
     </div>
@@ -70,13 +70,13 @@ title: Beranda
             <h3 class="text-xl font-bold text-orange-600">Realisasi</h3>
         </div>
         <p class="text-gray-600 mb-4">Rekap realisasi program per kecamatan: Utara, Selatan, Tengah.</p>
-        <a href="/realisasi" class="inline-flex items-center text-orange-600 font-semibold">
+        <a href="{{ site.baseurl }}/realisasi" class="inline-flex items-center text-orange-600 font-semibold">
             Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
         </a>
     </div>
 </div>
 
-<!-- Artikel Terbaru (opsional) -->
+<!-- Artikel Terbaru -->
 <div class="mt-12">
     <h2 class="text-3xl font-bold text-center mb-8">Artikel & Berita Terbaru</h2>
     <div class="grid md:grid-cols-3 gap-6">
@@ -90,16 +90,16 @@ title: Beranda
             </div>
             {% endif %}
             <div class="p-6">
-                <h3 class="text-xl font-bold mb-2"><a href="{{ post.url }}" class="text-gray-800 hover:text-red-600">{{ post.title }}</a></h3>
+                <h3 class="text-xl font-bold mb-2"><a href="{{ site.baseurl }}{{ post.url }}" class="text-gray-800 hover:text-red-600">{{ post.title }}</a></h3>
                 <p class="text-gray-500 text-sm">{{ post.date | date: "%d %b %Y" }}</p>
                 <p class="text-gray-600 mt-2">{{ post.excerpt | strip_html | truncatewords:15 }}</p>
-                <a href="{{ post.url }}" class="inline-block mt-4 text-red-600 font-semibold">Baca →</a>
+                <a href="{{ site.baseurl }}{{ post.url }}" class="inline-block mt-4 text-red-600 font-semibold">Baca →</a>
             </div>
         </div>
         {% endfor %}
     </div>
     <div class="text-center mt-8">
-        <a href="/artikel" class="inline-block bg-gradient-to-r from-red-600 to-yellow-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition">
+        <a href="{{ site.baseurl }}/artikel" class="inline-block bg-gradient-to-r from-red-600 to-yellow-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition">
             Lihat Semua Artikel
         </a>
     </div>

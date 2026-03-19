@@ -11,21 +11,21 @@ Berikut adalah ringkasan realisasi kegiatan PRODAMAI di tiga kecamatan Kota Mage
 - **Total Kegiatan**: 8
 - **Realisasi Q1 2026**: 95%
 - **Fasilitator**: 25 orang
-- [Lihat Detail Realisasi Utara](/realisasi/utara) *(buat halaman detail terpisah atau link ke postingan)*
+- [Lihat Detail Realisasi Utara]({{ site.baseurl }}/realisasi/utara)
 
 ## 📍 Kecamatan Magelang Selatan
 - **Total Kegiatan**: 12
 - **Realisasi Q1 2026**: 98%
 - **Fasilitator**: 30 orang
-- [Lihat Detail Realisasi Selatan](/realisasi/selatan)
+- [Lihat Detail Realisasi Selatan]({{ site.baseurl }}/realisasi/selatan)
 
 ## 📍 Kecamatan Magelang Tengah
 - **Total Kegiatan**: 15
 - **Realisasi Q1 2026**: 96%
 - **Fasilitator**: 28 orang
-- [Lihat Detail Realisasi Tengah](/realisasi/tengah)
+- [Lihat Detail Realisasi Tengah]({{ site.baseurl }}/realisasi/tengah)
 
 ---
 
 Untuk data lebih lengkap, unduh spreadsheet berikut:  
-[📊 Rekap Lengkap (Excel)](/assets/dokumen/rekap-realisasi.xlsx)
+[📊 Rekap Lengkap (Excel)]({{ site.baseurl }}/assets/dokumen/rekap-realisasi.xlsx)
