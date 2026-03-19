@@ -4,7 +4,7 @@ description: >-
   Sistem Informasi Program Pemberdayaan Masyarakat (PRODAMAI) 
   – Monitoring dan Evaluasi Program Pemberdayaan di Kota Magelang.
 baseurl: "/siomai"  # kosong jika domain root, atau "/siomai-blog" jika di subfolder ges
-url: "https://github.com/fasilitatormgl  # ganti dengan URL GitHub Anda
+url: "https://fasilitatormgl.github.io/"  # ganti dengan URL GitHub Anda
 author: Fasilitator PRODAMAI
 
 # Build settings
