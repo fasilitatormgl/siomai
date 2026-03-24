@@ -16,13 +16,13 @@
 
 body {
     font-family:'Inter',sans-serif;
-    background:linear-gradient(180deg,#fff7ed,#ffffff);
+    background:#fff7ed;
 }
 
-/* NAVBAR GLASS */
+/* NAVBAR */
 .glass {
-    background:rgba(255,255,255,0.7);
-    backdrop-filter:blur(14px);
+    background:rgba(255,255,255,0.9);
+    backdrop-filter:blur(10px);
 }
 
 /* BADGE */
@@ -34,10 +34,9 @@ body {
     50%{box-shadow:0 0 15px rgba(220,38,38,0.6);}
 }
 
-/* LINK */
+/* NAV LINK */
 .nav-link {
     position:relative;
-    transition:0.3s;
 }
 .nav-link::after {
     content:"";
@@ -53,7 +52,7 @@ body {
     width:100%;
 }
 
-/* MOBILE ANIMATION */
+/* MOBILE MENU */
 .mobile-menu {
     max-height:0;
     overflow:hidden;
@@ -63,10 +62,43 @@ body {
     max-height:500px;
 }
 
-/* CARD */
-.card:hover {
-    transform:translateY(-6px);
-    box-shadow:0 20px 40px rgba(0,0,0,0.1);
+/* HERO FIX */
+.hero {
+    position:relative;
+    padding:100px 20px 60px;
+    text-align:center;
+    background: linear-gradient(135deg, #dc2626, #f59e0b);
+    color:white;
+}
+.hero::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.25);
+}
+.hero-content {
+    position:relative;
+    z-index:2;
+}
+.hero h1 {
+    font-size:42px;
+    font-weight:800;
+}
+.hero p {
+    opacity:0.95;
+}
+
+/* STAT */
+.stat-card {
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+.stat-number {
+    font-size:32px;
+    font-weight:800;
+    color:#f59e0b;
 }
 </style>
 </head>
@@ -78,7 +110,6 @@ body {
 <div class="max-w-7xl mx-auto px-4">
 <div class="flex justify-between items-center h-16">
 
-<!-- LOGO -->
 <div class="flex items-center space-x-3">
 <a href="{{ site.baseurl }}/"
 class="text-3xl font-extrabold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
@@ -91,7 +122,6 @@ style="background:#fde2e2; color:#dc2626;">
 </span>
 </div>
 
-<!-- DESKTOP MENU -->
 <div class="hidden md:flex space-x-8">
 <a href="{{ site.baseurl }}/" class="nav-link text-gray-700">Beranda</a>
 <a href="{{ site.baseurl }}/peraturan" class="nav-link text-gray-700">Peraturan</a>
@@ -100,7 +130,6 @@ style="background:#fde2e2; color:#dc2626;">
 <a href="{{ site.baseurl }}/artikel" class="nav-link text-gray-700">Artikel</a>
 </div>
 
-<!-- MOBILE BUTTON -->
 <button onclick="toggleMenu()" class="md:hidden text-xl text-gray-700">
 <i class="fas fa-bars"></i>
 </button>
@@ -132,63 +161,56 @@ style="background:#fde2e2; color:#dc2626;">
 </a>
 
 </div>
-
 </nav>
 
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+
+<h1>SIOMAI</h1>
+<p class="mt-2 text-lg">Sistem Informasi PRODAMAI</p>
+<p class="mt-2 text-sm">Program Pemberdayaan Masyarakat Kota Magelang</p>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+
+<div class="stat-card">
+<div class="stat-number">70</div>
+<div class="text-gray-500 text-sm">Fasilitator</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">17</div>
+<div class="text-gray-500 text-sm">Kelurahan</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">48</div>
+<div class="text-gray-500 text-sm">Kegiatan</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">92%</div>
+<div class="text-gray-500 text-sm">Realisasi</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
 <!-- CONTENT -->
-<main class="pt-24 pb-12">
+<main class="py-12">
 <div class="max-w-7xl mx-auto px-4">
 {{ content }}
 </div>
 </main>
 
 <!-- FOOTER -->
-<footer class="bg-gray-900 text-white py-12 mt-10">
-<div class="max-w-7xl mx-auto px-4">
-
-<div class="grid md:grid-cols-4 gap-8">
-
-<div>
-<h3 class="text-xl font-bold text-red-400 mb-4">SIOMAI</h3>
+<footer class="bg-gray-900 text-white py-12">
+<div class="max-w-7xl mx-auto px-4 text-center">
 <p class="text-gray-400 text-sm">
-Sistem Informasi Program Pemberdayaan Masyarakat Kota Magelang.
+© 2026 {{ site.author }} - SIOMAI PRODAMAI
 </p>
-</div>
-
-<div>
-<h4 class="font-bold mb-4 text-yellow-400">Menu</h4>
-<ul class="space-y-2 text-gray-400 text-sm">
-<li><a href="{{ site.baseurl }}/">Beranda</a></li>
-<li><a href="{{ site.baseurl }}/peraturan">Peraturan</a></li>
-<li><a href="{{ site.baseurl }}/standar-harga">Harga</a></li>
-<li><a href="{{ site.baseurl }}/realisasi">Realisasi</a></li>
-<li><a href="{{ site.baseurl }}/artikel">Artikel</a></li>
-</ul>
-</div>
-
-<div>
-<h4 class="font-bold mb-4 text-red-400">Wilayah</h4>
-<ul class="text-gray-400 text-sm space-y-2">
-<li>Magelang Utara</li>
-<li>Magelang Tengah</li>
-<li>Magelang Selatan</li>
-</ul>
-</div>
-
-<div>
-<h4 class="font-bold mb-4 text-orange-400">Kontak</h4>
-<p class="text-gray-400 text-sm">
-<i class="fas fa-phone"></i> (0293) 123456<br>
-<i class="fas fa-envelope"></i> prodamai@gmail.com
-</p>
-</div>
-
-</div>
-
-<div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
-© 2026 {{ site.author }} - All rights reserved
-</div>
-
 </div>
 </footer>
 
@@ -196,7 +218,6 @@ Sistem Informasi Program Pemberdayaan Masyarakat Kota Magelang.
 function toggleMenu(){
     document.getElementById("mobileMenu").classList.toggle("show");
 }
-
 function closeMenu(){
     document.getElementById("mobileMenu").classList.remove("show");
 }
