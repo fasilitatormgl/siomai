@@ -3,90 +3,104 @@ layout: default
 title: Beranda
 ---
 
-<!-- HERO -->
-<section class="text-white rounded-3xl p-12 mb-12 relative overflow-hidden"
-style="background: linear-gradient(135deg, #dc2626, #f59e0b);">
-
-<div class="absolute inset-0 bg-black opacity-20"></div>
-
-<div class="relative z-10 text-center">
-    <h1 class="text-5xl md:text-6xl font-extrabold mb-4">SIOMAI</h1>
-    <p class="text-2xl mb-2">Sistem Informasi PRODAMAI</p>
-    <p class="text-lg opacity-90">Program Pemberdayaan Masyarakat Kota Magelang</p>
-</div>
-
-<!-- STAT -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 max-w-4xl mx-auto relative z-10">
-
-<div class="bg-white rounded-xl p-5 shadow-lg text-center">
-    <div class="text-3xl font-bold text-yellow-500">70</div>
-    <div class="text-sm text-gray-600">Fasilitator</div>
-</div>
-
-<div class="bg-white rounded-xl p-5 shadow-lg text-center">
-    <div class="text-3xl font-bold text-yellow-500">17</div>
-    <div class="text-sm text-gray-600">Kelurahan</div>
-</div>
-
-<div class="bg-white rounded-xl p-5 shadow-lg text-center">
-    <div class="text-3xl font-bold text-yellow-500">48</div>
-    <div class="text-sm text-gray-600">Kegiatan</div>
-</div>
-
-<div class="bg-white rounded-xl p-5 shadow-lg text-center">
-    <div class="text-3xl font-bold text-yellow-500">92%</div>
-    <div class="text-sm text-gray-600">Realisasi</div>
-</div>
-
-</div>
+<!-- Hero Section -->
+<section class="gradient-primary text-white rounded-3xl p-12 mb-12">
+    <div class="text-center">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">SIOMAI</h1>
+        <p class="text-2xl md:text-3xl mb-4 font-light">Sistem Informasi PRODAMAI</p>
+        <div class="h-1 w-24 bg-white opacity-30 mx-auto mb-4 rounded-full"></div>
+        <p class="text-xl max-w-3xl mx-auto opacity-90">Program Pemberdayaan Masyarakat Kota Magelang</p>
+    </div>
+    
+    <!-- Statistik -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
+        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-5 border border-white border-opacity-30 hover-scale">
+            <div class="text-3xl font-bold text-yellow-300">70</div>
+            <div class="text-sm font-semibold">Fasilitator Aktif</div>
+        </div>
+        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-5 border border-white border-opacity-30 hover-scale">
+            <div class="text-3xl font-bold text-yellow-300">17</div>
+            <div class="text-sm font-semibold">Kelurahan Binaan</div>
+        </div>
+        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-5 border border-white border-opacity-30 hover-scale">
+            <div class="text-3xl font-bold text-yellow-300">48</div>
+            <div class="text-sm font-semibold">Kegiatan</div>
+        </div>
+        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-5 border border-white border-opacity-30 hover-scale">
+            <div class="text-3xl font-bold text-yellow-300">92%</div>
+            <div class="text-sm font-semibold">Realisasi</div>
+        </div>
+    </div>
 </section>
 
-<!-- MENU CARD -->
+<!-- Tiga Card Kategori -->
 <div class="grid md:grid-cols-3 gap-8 mb-12">
-
-<div class="bg-white rounded-2xl shadow-xl p-6 hover-scale">
-<h3 class="text-xl font-bold text-red-600 mb-2">Peraturan</h3>
-<p class="text-gray-600 mb-3">Dokumen & SE PRODAMAI</p>
-<a href="{{ site.baseurl }}/peraturan" class="text-red-600 font-semibold">Lihat →</a>
-</div>
-
-<div class="bg-white rounded-2xl shadow-xl p-6 hover-scale">
-<h3 class="text-xl font-bold text-yellow-600 mb-2">Standar Harga</h3>
-<p class="text-gray-600 mb-3">Standar biaya kegiatan</p>
-<a href="{{ site.baseurl }}/standar-harga" class="text-yellow-600 font-semibold">Lihat →</a>
-</div>
-
-<div class="bg-white rounded-2xl shadow-xl p-6 hover-scale">
-<h3 class="text-xl font-bold text-orange-600 mb-2">Realisasi</h3>
-<p class="text-gray-600 mb-3">Rekap kegiatan</p>
-<a href="{{ site.baseurl }}/realisasi" class="text-orange-600 font-semibold">Lihat →</a>
-</div>
-
-</div>
-
-<!-- ARTIKEL -->
-<div>
-<h2 class="text-2xl font-bold text-center mb-6">Artikel Terbaru</h2>
-
-<div class="grid md:grid-cols-3 gap-6">
-
-{% for post in site.posts limit:3 %}
-<div class="bg-white rounded-xl shadow-lg p-4">
-
-<h3 class="font-bold text-lg mb-2">
-<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-</h3>
-
-<p class="text-sm text-gray-500 mb-2">
-{{ post.date | date: "%d %b %Y" }}
-</p>
-
-<p class="text-gray-600 text-sm">
-{{ post.excerpt | strip_html | truncatewords:15 }}
-</p>
-
-</div>
-{% endfor %}
-
-</div>
+    <!-- Peraturan/SE -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 hover-scale">
+        <div class="flex items-center mb-4">
+            <div class="p-3 bg-red-100 rounded-xl mr-4">
+                <i class="fas fa-file-alt text-2xl text-red-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-red-600">Peraturan / SE</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Kumpulan Surat Edaran, Juknis, dan dokumen pendukung PRODAMAI.</p>
+        <a href="{{ site.baseurl }}/peraturan" class="inline-flex items-center text-red-600 font-semibold">
+            Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
+        </a>
     </div>
+    <!-- Standar Harga -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 hover-scale">
+        <div class="flex items-center mb-4">
+            <div class="p-3 bg-yellow-100 rounded-xl mr-4">
+                <i class="fas fa-tag text-2xl text-yellow-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-yellow-600">Standar Harga</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Informasi standar biaya untuk kegiatan fasilitasi, transportasi, dll.</p>
+        <a href="{{ site.baseurl }}/standar-harga" class="inline-flex items-center text-yellow-600 font-semibold">
+            Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+    <!-- Realisasi -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 hover-scale">
+        <div class="flex items-center mb-4">
+            <div class="p-3 bg-orange-100 rounded-xl mr-4">
+                <i class="fas fa-chart-line text-2xl text-orange-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-orange-600">Realisasi</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Rekap realisasi program per kecamatan: Utara, Selatan, Tengah.</p>
+        <a href="{{ site.baseurl }}/realisasi" class="inline-flex items-center text-orange-600 font-semibold">
+            Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Artikel Terbaru -->
+<div class="mt-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Artikel & Berita Terbaru</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+        {% for post in site.posts limit:3 %}
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover-scale">
+            {% if post.image %}
+            <img src="{{ post.image }}" class="w-full h-48 object-cover">
+            {% else %}
+            <div class="w-full h-48 bg-gradient-to-r from-red-400 to-yellow-400 flex items-center justify-center">
+                <i class="fas fa-newspaper text-white text-4xl"></i>
+            </div>
+            {% endif %}
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2"><a href="{{ site.baseurl }}{{ post.url }}" class="text-gray-800 hover:text-red-600">{{ post.title }}</a></h3>
+                <p class="text-gray-500 text-sm">{{ post.date | date: "%d %b %Y" }}</p>
+                <p class="text-gray-600 mt-2">{{ post.excerpt | strip_html | truncatewords:15 }}</p>
+                <a href="{{ site.baseurl }}{{ post.url }}" class="inline-block mt-4 text-red-600 font-semibold">Baca →</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-8">
+        <a href="{{ site.baseurl }}/artikel" class="inline-block bg-gradient-to-r from-red-600 to-yellow-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition">
+            Lihat Semua Artikel
+        </a>
+    </div>
+</div>
