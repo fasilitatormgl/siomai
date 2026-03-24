@@ -6,7 +6,7 @@ image: ""
 ---
 gambar disini
 
-![Prodamai](assets/images/uploads/damai1_c9b079aa44.jpeg "Fasilitator")
+![Prodamai]({{ site.baseurl }}assets/images/uploads/damai1_c9b079aa44.jpeg "Fasilitator")
 
 KOTA MAGELANG – Peran dan integritas para fasilitator menjadi kunci untuk menyukseskan Program Pemberdayaan Masyarakat dan Pembangunan Infrastruktur (Prodamai).
 
