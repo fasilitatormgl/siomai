@@ -1,137 +1,206 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - {{ site.title }}</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --merah: #dc2626;
-            --merah-tua: #b91c1c;
-            --kuning: #f59e0b;
-            --kuning-tua: #d97706;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #fff9f0;
-            color: #1f2937;
-        }
-        .gradient-primary {
-            background: linear-gradient(135deg, var(--merah) 0%, var(--kuning) 100%);
-        }
-        .hover-scale {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .hover-scale:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -10px rgba(220,38,38,0.2);
-        }
-        .post-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        .post-content h2 {
-            color: var(--merah-tua);
-            font-size: 1.8rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            border-left: 5px solid var(--kuning);
-            padding-left: 1rem;
-        }
-        .post-content h3 {
-            color: var(--kuning-tua);
-            font-size: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .post-content a {
-            color: var(--merah);
-            text-decoration: underline;
-        }
-        .post-content a:hover {
-            color: var(--kuning);
-        }
-        .post-content img {
-            border-radius: 1rem;
-            max-width: 100%;
-            height: auto;
-        }
-        .post-content blockquote {
-            background: #fef3c7;
-            border-left: 5px solid var(--kuning);
-            padding: 1rem 1.5rem;
-            font-style: italic;
-            margin: 1.5rem 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title }} - {{ site.title }}</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root {
+    --merah:#dc2626;
+    --kuning:#f59e0b;
+}
+
+body {
+    font-family:'Inter',sans-serif;
+    background:linear-gradient(180deg,#fff7ed,#ffffff);
+}
+
+/* NAVBAR GLASS */
+.glass {
+    background:rgba(255,255,255,0.7);
+    backdrop-filter:blur(14px);
+}
+
+/* BADGE */
+.badge-glow {
+    animation:glow 2s infinite;
+}
+@keyframes glow {
+    0%,100%{box-shadow:0 0 5px rgba(220,38,38,0.3);}
+    50%{box-shadow:0 0 15px rgba(220,38,38,0.6);}
+}
+
+/* LINK */
+.nav-link {
+    position:relative;
+    transition:0.3s;
+}
+.nav-link::after {
+    content:"";
+    position:absolute;
+    bottom:-4px;
+    left:0;
+    width:0;
+    height:2px;
+    background:linear-gradient(to right,#dc2626,#f59e0b);
+    transition:0.3s;
+}
+.nav-link:hover::after {
+    width:100%;
+}
+
+/* MOBILE ANIMATION */
+.mobile-menu {
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.4s ease;
+}
+.mobile-menu.show {
+    max-height:500px;
+}
+
+/* CARD */
+.card:hover {
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.1);
+}
+</style>
 </head>
+
 <body>
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg fixed w-full z-50 border-b-4" style="border-image: linear-gradient(90deg, #dc2626, #f59e0b) 1;">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <a href="{{ site.baseurl }}/" class="text-2xl font-extrabold bg-gradient-to-r from-red-600 to-yellow-600 bg-clip-text text-transparent hover:opacity-80 transition">
-                    SIOMAI
-                </a>
-                <div class="hidden md:flex space-x-6">
-                    <a href="{{ site.baseurl }}/" class="text-gray-700 hover:text-red-600 font-medium">Beranda</a>
-                    <a href="{{ site.baseurl }}/peraturan" class="text-gray-700 hover:text-red-600 font-medium">Peraturan/SE</a>
-                    <a href="{{ site.baseurl }}/standar-harga" class="text-gray-700 hover:text-red-600 font-medium">Standar Harga</a>
-                    <a href="{{ site.baseurl }}/realisasi" class="text-gray-700 hover:text-red-600 font-medium">Realisasi</a>
-                    <a href="{{ site.baseurl }}/artikel" class="text-gray-700 hover:text-red-600 font-medium">Artikel</a>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Konten Utama -->
-    <main class="pt-20 pb-12">
-        <div class="max-w-7xl mx-auto px-4">
-            {{ content }}
-        </div>
-    </main>
+<!-- NAVBAR -->
+<nav class="glass fixed w-full z-50 border-b border-red-100">
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex justify-between items-center h-16">
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold text-red-400 mb-4">SIOMAI</h3>
-                    <p class="text-gray-400 text-sm">Sistem Informasi Program Pemberdayaan Masyarakat (PRODAMAI) Kota Magelang.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4 text-yellow-400">Tautan</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="{{ site.baseurl }}/" class="hover:text-yellow-400">Beranda</a></li>
-                        <li><a href="{{ site.baseurl }}/peraturan" class="hover:text-yellow-400">Peraturan/SE</a></li>
-                        <li><a href="{{ site.baseurl }}/standar-harga" class="hover:text-yellow-400">Standar Harga</a></li>
-                        <li><a href="{{ site.baseurl }}/realisasi" class="hover:text-yellow-400">Realisasi</a></li>
-                        <li><a href="{{ site.baseurl }}/artikel" class="hover:text-yellow-400">Artikel</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4 text-red-400">Kecamatan</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li>Magelang Utara</li>
-                        <li>Magelang Selatan</li>
-                        <li>Magelang Tengah</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4 text-orange-400">Kontak</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><i class="fas fa-phone mr-2"></i> (0293) 123456</li>
-                        <li><i class="fas fa-envelope mr-2"></i>layanan.prodamai@gmail.com</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; 2026 {{ site.author }}. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<!-- LOGO -->
+<div class="flex items-center space-x-3">
+<a href="{{ site.baseurl }}/"
+class="text-3xl font-extrabold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+SIOMAI
+</a>
+
+<span class="badge-glow px-4 py-1 rounded-full text-sm font-semibold"
+style="background:#fde2e2; color:#dc2626;">
+🔥 Prodamai
+</span>
+</div>
+
+<!-- DESKTOP MENU -->
+<div class="hidden md:flex space-x-8">
+<a href="{{ site.baseurl }}/" class="nav-link text-gray-700">Beranda</a>
+<a href="{{ site.baseurl }}/peraturan" class="nav-link text-gray-700">Peraturan</a>
+<a href="{{ site.baseurl }}/standar-harga" class="nav-link text-gray-700">Harga</a>
+<a href="{{ site.baseurl }}/realisasi" class="nav-link text-gray-700">Realisasi</a>
+<a href="{{ site.baseurl }}/artikel" class="nav-link text-gray-700">Artikel</a>
+</div>
+
+<!-- MOBILE BUTTON -->
+<button onclick="toggleMenu()" class="md:hidden text-xl text-gray-700">
+<i class="fas fa-bars"></i>
+</button>
+
+</div>
+</div>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" class="mobile-menu md:hidden glass border-t border-red-100 px-6">
+
+<a onclick="closeMenu()" href="{{ site.baseurl }}/" class="flex items-center gap-2 py-3 nav-link text-gray-700">
+<i class="fas fa-home"></i> Beranda
+</a>
+
+<a onclick="closeMenu()" href="{{ site.baseurl }}/peraturan" class="flex items-center gap-2 py-3 nav-link text-gray-700">
+<i class="fas fa-file-alt"></i> Peraturan
+</a>
+
+<a onclick="closeMenu()" href="{{ site.baseurl }}/standar-harga" class="flex items-center gap-2 py-3 nav-link text-gray-700">
+<i class="fas fa-tags"></i> Harga
+</a>
+
+<a onclick="closeMenu()" href="{{ site.baseurl }}/realisasi" class="flex items-center gap-2 py-3 nav-link text-gray-700">
+<i class="fas fa-chart-bar"></i> Realisasi
+</a>
+
+<a onclick="closeMenu()" href="{{ site.baseurl }}/artikel" class="flex items-center gap-2 py-3 nav-link text-gray-700">
+<i class="fas fa-newspaper"></i> Artikel
+</a>
+
+</div>
+
+</nav>
+
+<!-- CONTENT -->
+<main class="pt-24 pb-12">
+<div class="max-w-7xl mx-auto px-4">
+{{ content }}
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-white py-12 mt-10">
+<div class="max-w-7xl mx-auto px-4">
+
+<div class="grid md:grid-cols-4 gap-8">
+
+<div>
+<h3 class="text-xl font-bold text-red-400 mb-4">SIOMAI</h3>
+<p class="text-gray-400 text-sm">
+Sistem Informasi Program Pemberdayaan Masyarakat Kota Magelang.
+</p>
+</div>
+
+<div>
+<h4 class="font-bold mb-4 text-yellow-400">Menu</h4>
+<ul class="space-y-2 text-gray-400 text-sm">
+<li><a href="{{ site.baseurl }}/">Beranda</a></li>
+<li><a href="{{ site.baseurl }}/peraturan">Peraturan</a></li>
+<li><a href="{{ site.baseurl }}/standar-harga">Harga</a></li>
+<li><a href="{{ site.baseurl }}/realisasi">Realisasi</a></li>
+<li><a href="{{ site.baseurl }}/artikel">Artikel</a></li>
+</ul>
+</div>
+
+<div>
+<h4 class="font-bold mb-4 text-red-400">Wilayah</h4>
+<ul class="text-gray-400 text-sm space-y-2">
+<li>Magelang Utara</li>
+<li>Magelang Tengah</li>
+<li>Magelang Selatan</li>
+</ul>
+</div>
+
+<div>
+<h4 class="font-bold mb-4 text-orange-400">Kontak</h4>
+<p class="text-gray-400 text-sm">
+<i class="fas fa-phone"></i> (0293) 123456<br>
+<i class="fas fa-envelope"></i> prodamai@gmail.com
+</p>
+</div>
+
+</div>
+
+<div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
+© 2026 {{ site.author }} - All rights reserved
+</div>
+
+</div>
+</footer>
+
+<script>
+function toggleMenu(){
+    document.getElementById("mobileMenu").classList.toggle("show");
+}
+
+function closeMenu(){
+    document.getElementById("mobileMenu").classList.remove("show");
+}
+</script>
+
 </body>
 </html>
