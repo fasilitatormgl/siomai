@@ -1,35 +1,119 @@
 ---
 layout: default
 ---
-<article class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold text-red-600 mb-4">{{ page.title }}</h1>
-    
-    <div class="text-gray-500 text-sm mb-6 border-b border-gray-200 pb-4">
-        <span><i class="far fa-calendar mr-2"></i>{{ page.date | date: "%d %B %Y" }}</span>
-        {% if page.author %}
-        <span class="ml-4"><i class="far fa-user mr-2"></i>{{ page.author }}</span>
-        {% endif %}
-        {% if page.categories %}
-        <span class="ml-4"><i class="far fa-folder mr-2"></i>{{ page.categories | join: ', ' }}</span>
-        {% endif %}
-    </div>
-
+<article class="bg-white rounded-2xl shadow-xl overflow-hidden">
+    <!-- Header artikel (gambar unggulan) -->
     {% if page.image %}
-<img src="{{ site.baseurl }}/{{ page.image }}" class="w-full rounded-xl mb-6">
-{% endif %}
-    
-    <div class="post-content">
-        {{ content }}
+    <div class="relative h-96 w-full overflow-hidden">
+        <img src="{{ site.baseurl }}/{{ page.image }}" class="w-full h-full object-cover transition duration-500 hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+    </div>
+    {% endif %}
+
+    <!-- Konten artikel -->
+    <div class="p-8 md:p-12">
+        <!-- Meta info: kategori, tanggal, penulis -->
+        <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-6 border-b border-gray-200 pb-4">
+            {% if page.categories %}
+            <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full font-semibold text-xs">
+                {{ page.categories | join: ', ' }}
+            </span>
+            {% endif %}
+            <span><i class="far fa-calendar mr-1"></i> {{ page.date | date: "%d %B %Y" }}</span>
+            {% if page.author %}
+            <span><i class="far fa-user mr-1"></i> {{ page.author }}</span>
+            {% endif %}
+        </div>
+
+        <!-- Judul artikel -->
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">{{ page.title }}</h1>
+
+        <!-- Isi artikel -->
+        <div class="post-content text-gray-700 leading-relaxed">
+            {{ content }}
+        </div>
+
+        <!-- Tombol share (opsional) -->
+        <div class="mt-12 pt-6 border-t border-gray-200">
+            <div class="flex items-center gap-4">
+                <span class="text-gray-600 font-semibold">Bagikan:</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ site.baseurl }}{{ page.url }}" target="_blank" class="text-gray-500 hover:text-blue-600 transition">
+                    <i class="fab fa-facebook-f text-xl"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ site.url }}{{ site.baseurl }}{{ page.url }}" target="_blank" class="text-gray-500 hover:text-blue-400 transition">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+                <a href="https://wa.me/?text={{ page.title | uri_escape }}%20{{ site.url }}{{ site.baseurl }}{{ page.url }}" target="_blank" class="text-gray-500 hover:text-green-500 transition">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </article>
 
+<!-- Navigasi ke artikel sebelumnya dan selanjutnya -->
+<div class="flex justify-between mt-8">
+    {% if page.previous.url %}
+    <a href="{{ site.baseurl }}{{ page.previous.url }}" class="group flex items-center gap-3 bg-white px-5 py-3 rounded-xl shadow hover:shadow-md transition">
+        <i class="fas fa-arrow-left text-red-600 group-hover:-translate-x-1 transition"></i>
+        <div>
+            <div class="text-xs text-gray-500">Artikel Sebelumnya</div>
+            <div class="font-semibold text-gray-800">{{ page.previous.title | truncatewords:5 }}</div>
+        </div>
+    </a>
+    {% endif %}
+    {% if page.next.url %}
+    <a href="{{ site.baseurl }}{{ page.next.url }}" class="group flex items-center gap-3 bg-white px-5 py-3 rounded-xl shadow hover:shadow-md transition text-right">
+        <div>
+            <div class="text-xs text-gray-500">Artikel Selanjutnya</div>
+            <div class="font-semibold text-gray-800">{{ page.next.title | truncatewords:5 }}</div>
+        </div>
+        <i class="fas fa-arrow-right text-red-600 group-hover:translate-x-1 transition"></i>
+    </a>
+    {% endif %}
+</div>
+
 <style>
-.post-content { font-size: 1.1rem; line-height: 1.8; }
-.post-content h2 { color: #b91c1c; font-size: 1.8rem; margin: 2rem 0 1rem; border-left: 5px solid #f59e0b; padding-left: 1rem; }
-.post-content h3 { color: #d97706; font-size: 1.5rem; margin: 1.5rem 0; }
-.post-content a { color: #dc2626; text-decoration: underline; }
-.post-content a:hover { color: #f59e0b; }
-.post-content img { border-radius: 1rem; max-width: 100%; height: auto; margin: 1.5rem 0; }
-.post-content blockquote { background: #fef3c7; border-left: 5px solid #f59e0b; padding: 1rem 1.5rem; font-style: italic; margin: 1.5rem 0; border-radius: 0 1rem 1rem 0; }
-.post-content ul, .post-content ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+/* Styling untuk konten artikel */
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+.post-content h2 {
+    color: #b91c1c;
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+    border-left: 5px solid #f59e0b;
+    padding-left: 1rem;
+}
+.post-content h3 {
+    color: #d97706;
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+}
+.post-content a {
+    color: #dc2626;
+    text-decoration: underline;
+}
+.post-content a:hover {
+    color: #f59e0b;
+}
+.post-content img {
+    border-radius: 1rem;
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+}
+.post-content blockquote {
+    background: #fef3c7;
+    border-left: 5px solid #f59e0b;
+    padding: 1rem 1.5rem;
+    font-style: italic;
+    margin: 1.5rem 0;
+    border-radius: 0 1rem 1rem 0;
+}
+.post-content ul, .post-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
 </style>
