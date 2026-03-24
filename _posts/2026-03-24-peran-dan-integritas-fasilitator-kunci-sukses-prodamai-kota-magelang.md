@@ -8,7 +8,7 @@ gambar disini
 
 KOTA MAGELANG – Peran dan integritas para fasilitator menjadi kunci untuk menyukseskan Program Pemberdayaan Masyarakat dan Pembangunan Infrastruktur (Prodamai).
 
-![Prodamai](siomai/assets/images/uploads/damai1_c9b079aa44.jpeg)
+![Prodamai](/assets/images/uploads/damai1_c9b079aa44.jpeg)
 
 Hal itu disampaikan Wali Kota Magelang Damar Prasetyono dalam kegiatan Pembinaan Fasilitator Prodamai Kota Magelang, Selasa (7/10/2025), di Pendopo Pengabdian rumjab Wali Kota Magelang.
 
