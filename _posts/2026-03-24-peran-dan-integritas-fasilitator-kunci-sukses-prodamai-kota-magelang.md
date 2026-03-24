@@ -4,7 +4,7 @@ date: 2026-03-24T18:12:00.000+07:00
 categories: PRODAMAI 2026
 image: assets/images/uploads/damai1_c9b079aa44.jpeg
 ---
-![](assets/images/uploads/damai1_c9b079aa44.jpeg)
+gambar disini
 
 KOTA MAGELANG – Peran dan integritas para fasilitator menjadi kunci untuk menyukseskan Program Pemberdayaan Masyarakat dan Pembangunan Infrastruktur (Prodamai).
 
