@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "assets/images/uploads"
+media_folder: "/assets/images/uploads"
 public_folder: "/siomai/assets/images/uploads"
 
 collections:
