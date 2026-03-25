@@ -70,25 +70,13 @@
 
         /* Animasi untuk navbar */
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .animate-nav {
             animation: fadeInDown 0.6s ease-out;
@@ -114,11 +102,52 @@
             0%, 100% { box-shadow: 0 0 0px rgba(220,38,38,0.2); }
             50% { box-shadow: 0 0 8px rgba(220,38,38,0.5); }
         }
+
+        /* Efek menu desktop */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--merah), var(--kuning));
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--merah);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Efek menu mobile */
+        .mobile-nav-link {
+            display: block;
+            padding: 0.5rem 0;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        .mobile-nav-link:hover {
+            background: #fef3c7;
+            border-left-color: var(--kuning);
+            padding-left: 1rem;
+        }
+
+        /* Penyesuaian navbar agar tidak terlalu lebar */
+        .navbar-container {
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
     </style>
 </head>
 <body>
     <!-- Navbar Dua Baris dengan Animasi -->
-    <nav class="bg-white shadow-lg fixed w-full z-50 border-b-4 animate-nav" style="border-image: linear-gradient(90deg, #dc2626, #f59e0b) 1;">
+    <nav class="bg-white shadow-lg fixed w-full z-50 border-b-4 animate-nav navbar-container" style="border-image: linear-gradient(90deg, #dc2626, #f59e0b) 1;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Baris Pertama: Logo + Badge + Menu -->
             <div class="flex justify-between items-center py-3">
@@ -127,13 +156,13 @@
                     <span class="badge text-xs md:text-sm">🔥 Prodamai</span>
                 </div>
                 <!-- Menu Desktop -->
-                <div class="hidden md:flex space-x-6">
-                    <a href="{{ site.baseurl }}/" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Beranda</a>
-                    <a href="{{ site.baseurl }}/peraturan" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Peraturan/SE</a>
-                    <a href="{{ site.baseurl }}/standar-harga" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Standar Harga</a>
-                    <a href="{{ site.baseurl }}/realisasi" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Realisasi</a>
-                    <a href="{{ site.baseurl }}/artikel" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Artikel</a>
-                    <a href="{{ site.baseurl }}/foto" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Dokumentasi</a>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="{{ site.baseurl }}/" class="nav-link text-gray-700 font-medium transition-colors duration-200">Beranda</a>
+                    <a href="{{ site.baseurl }}/peraturan" class="nav-link text-gray-700 font-medium transition-colors duration-200">Peraturan/SE</a>
+                    <a href="{{ site.baseurl }}/standar-harga" class="nav-link text-gray-700 font-medium transition-colors duration-200">Standar Harga</a>
+                    <a href="{{ site.baseurl }}/realisasi" class="nav-link text-gray-700 font-medium transition-colors duration-200">Realisasi</a>
+                    <a href="{{ site.baseurl }}/artikel" class="nav-link text-gray-700 font-medium transition-colors duration-200">Artikel</a>
+                    <a href="{{ site.baseurl }}/foto" class="nav-link text-gray-700 font-medium transition-colors duration-200">Dokumentasi</a>
                 </div>
                 <!-- Tombol Mobile Menu -->
                 <button id="menuBtn" class="md:hidden text-gray-700 focus:outline-none">
@@ -142,18 +171,18 @@
             </div>
             <!-- Baris Kedua: Tagline (hanya di desktop) -->
             <div class="hidden md:block pb-3">
-                <p class="text-gray-600 text-sm tracking-wide">Sistem Informasi PRODAMAI – Program Pemberdayaan Masyarakat Kota Magelang</p>
+                <p class="text-gray-600 text-sm tracking-wide">Sistem Informasi PRODAMAI – Program Pemberdayaan Masyarakat dan Pembangunan Infrastruktur Kota Magelang</p>
             </div>
         </div>
 
         <!-- Mobile Menu (collapsible) -->
         <div id="mobileMenu" class="md:hidden hidden bg-white border-t border-gray-100 px-4 pb-4">
-            <a href="{{ site.baseurl }}/" class="block py-2 text-gray-700 hover:text-red-600">Beranda</a>
-            <a href="{{ site.baseurl }}/peraturan" class="block py-2 text-gray-700 hover:text-red-600">Peraturan/SE</a>
-            <a href="{{ site.baseurl }}/standar-harga" class="block py-2 text-gray-700 hover:text-red-600">Standar Harga</a>
-            <a href="{{ site.baseurl }}/realisasi" class="block py-2 text-gray-700 hover:text-red-600">Realisasi</a>
-            <a href="{{ site.baseurl }}/artikel" class="block py-2 text-gray-700 hover:text-red-600">Artikel</a>
-            <a href="{{ site.baseurl }}/foto" class="block py-2 text-gray-700 hover:text-red-600">Dokumentasi</a>
+            <a href="{{ site.baseurl }}/" class="mobile-nav-link text-gray-700 hover:text-red-600">Beranda</a>
+            <a href="{{ site.baseurl }}/peraturan" class="mobile-nav-link text-gray-700 hover:text-red-600">Peraturan/SE</a>
+            <a href="{{ site.baseurl }}/standar-harga" class="mobile-nav-link text-gray-700 hover:text-red-600">Standar Harga</a>
+            <a href="{{ site.baseurl }}/realisasi" class="mobile-nav-link text-gray-700 hover:text-red-600">Realisasi</a>
+            <a href="{{ site.baseurl }}/artikel" class="mobile-nav-link text-gray-700 hover:text-red-600">Artikel</a>
+            <a href="{{ site.baseurl }}/foto" class="mobile-nav-link text-gray-700 hover:text-red-600">Dokumentasi</a>
         </div>
     </nav>
 
@@ -170,7 +199,7 @@
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-xl font-bold text-red-400 mb-4">SIOMAI</h3>
-                    <p class="text-gray-400 text-sm">Sistem Informasi PRODAMI (Program Pemberdayaan Masyarakat dan Pembangunan Infrastruktur)Kota Magelang.</p>
+                    <p class="text-gray-400 text-sm">Sistem Informasi PRODAMAI – Program Pemberdayaan Masyarakat dan Pembangunan Infrastruktur Kota Magelang.</p>
                 </div>
                 <div>
                     <h4 class="font-bold mb-4 text-yellow-400">Tautan</h4>
@@ -180,6 +209,7 @@
                         <li><a href="{{ site.baseurl }}/standar-harga" class="hover:text-yellow-400">Standar Harga</a></li>
                         <li><a href="{{ site.baseurl }}/realisasi" class="hover:text-yellow-400">Realisasi</a></li>
                         <li><a href="{{ site.baseurl }}/artikel" class="hover:text-yellow-400">Artikel</a></li>
+                        <li><a href="{{ site.baseurl }}/foto" class="hover:text-yellow-400">Dokumentasi</a></li>
                     </ul>
                 </div>
                 <div>
@@ -193,7 +223,7 @@
                 <div>
                     <h4 class="font-bold mb-4 text-orange-400">Kontak</h4>
                     <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><i class="fas fa-phone mr-2"></i> (0293) **********</li>
+                        <li><i class="fas fa-phone mr-2"></i> (0293) 123456</li>
                         <li><i class="fas fa-envelope mr-2"></i> layanan.prodamai@gmail.com</li>
                     </ul>
                 </div>
