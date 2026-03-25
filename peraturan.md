@@ -3,7 +3,9 @@ layout: default
 title: Peraturan dan Surat Edaran
 ---
 
-# Peraturan dan Surat Edaran PRODAMAI
+<div align="center">
+  <strong style="font-size: 2em; color: #c9510c;">Peraturan dan Surat Edaran PRODAMAI</strong>
+</div>
 
 Berikut adalah dokumen peraturan, Surat Edaran (SE), dan petunjuk teknis yang terkait dengan Program Pemberdayaan Masyarakat (PRODAMAI) Kota Magelang.
 
