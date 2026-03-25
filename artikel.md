@@ -3,7 +3,9 @@ layout: default
 title: Semua Artikel
 ---
 
-## Semua Artikel
+<div align="center">
+  <strong style="font-size: 2em;">SEMUA ARTIKEL</strong>
+</div>
 
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for post in site.posts %}
