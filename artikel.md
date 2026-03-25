@@ -9,7 +9,7 @@ title: Semua Artikel
     {% for post in site.posts %}
     <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover-scale">
         {% if post.image %}
-        <img src="{{ post.image }}" class="w-full h-48 object-cover">
+        <img src="{{ site.baseurl }}{{ post.image }}" class="w-full h-48 object-cover">
         {% else %}
         <div class="w-full h-48 bg-gradient-to-r from-red-400 to-yellow-400 flex items-center justify-center">
             <i class="fas fa-newspaper text-white text-4xl"></i>
