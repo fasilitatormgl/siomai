@@ -3,7 +3,7 @@ layout: default
 title: Semua Artikel
 ---
 
-# Semua Artikel
+## Semua Artikel
 
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for post in site.posts %}
