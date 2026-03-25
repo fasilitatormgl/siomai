@@ -33,7 +33,7 @@ title: BATAGOR - Bagan Tabel Monitoring Fasilitator
         </div>
 
         <!-- Tombol akses utama -->
-        <a href="https://sites.google.com/view/batagor-prodamai" target="_blank" 
+        <a href="https://sites.google.com/view/batagor-mgl/home" target="_blank" 
            class="inline-block bg-gradient-to-r from-red-600 to-yellow-600 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
             <i class="fas fa-lock mr-2"></i> Akses BATAGOR
         </a>
@@ -61,7 +61,7 @@ title: BATAGOR - Bagan Tabel Monitoring Fasilitator
     <!-- Footer informasi akses -->
     <div class="mt-12 text-center text-sm text-gray-500 border-t border-gray-200 pt-6">
         <p><i class="fas fa-info-circle mr-1 text-red-500"></i> Halaman ini berisi data internal. Akses terbatas untuk fasilitator dan OPD.</p>
-        <p class="mt-2">Hubungi Admin: <a href="mailto:siomai@magelangkota.go.id" class="text-red-600 hover:underline">siomai@magelangkota.go.id</a> | (0293) 123456</p>
+        <p class="mt-2">Hubungi Admin: <a href="mailto:layanan.prodamai@gmail.com" class="text-red-600 hover:underline">siomai@magelangkota.go.id</a> | (0293) **********</p>
     </div>
 </div>
 
