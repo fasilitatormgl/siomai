@@ -43,7 +43,7 @@ Berikut adalah link akses spreadsheet realisasi setiap kelurahan. Klik tombol un
     </div>
     <!-- Kelurahan 2 -->
     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Keramat Selatan</h3>
+        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Selatan</h3>
         <p>Total RT: xx</p>
         <div class="progress-status">
             <div class="progress-bar-animate"></div>
@@ -53,7 +53,7 @@ Berikut adalah link akses spreadsheet realisasi setiap kelurahan. Klik tombol un
     </div>
     <!-- Kelurahan 2 -->
     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Keramat Utara</h3>
+        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Utara</h3>
         <p>Total RT: xx</p>
         <div class="progress-status">
             <div class="progress-bar-animate"></div>
