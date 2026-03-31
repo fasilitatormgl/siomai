@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BATAGOR - Akses Internal</title>
+    <title>BATAGOR - Monitoring Fasilitator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -11,27 +11,59 @@
             background: linear-gradient(135deg, #fff9f0 0%, #fff5e6 100%);
             font-family: 'Inter', sans-serif;
         }
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.02);
+            transition: all 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626, #f59e0b);
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(220,38,38,0.4);
+        }
+        .iframe-container {
+            overflow: hidden;
+            width: 100%;
+            border-radius: 1rem;
+            background: #f9f9f9;
+        }
+        .responsive-iframe {
+            width: 100%;
+            height: 600px;
+            border: 0;
+            border-radius: 1rem;
+        }
+        @media (max-width: 768px) {
+            .responsive-iframe {
+                height: 450px;
+            }
+        }
+        /* Login form */
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 2rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .btn-grad {
-            background: linear-gradient(135deg, #dc2626, #f59e0b);
-            transition: all 0.3s;
-        }
-        .btn-grad:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(220,38,38,0.4);
         }
         .error {
             color: #dc2626;
             font-size: 0.875rem;
             margin-top: 0.5rem;
         }
-        /* Animasi loading */
         .loading {
             display: inline-block;
             width: 20px;
@@ -48,8 +80,8 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-    <div class="max-w-5xl w-full">
+<body class="p-4 min-h-screen flex items-center justify-center">
+    <div class="max-w-7xl w-full">
         <!-- Card Login -->
         <div id="loginCard" class="glass-card p-8 text-center max-w-md mx-auto">
             <div class="inline-block p-4 bg-gradient-to-r from-red-600 to-yellow-600 rounded-2xl mb-4">
@@ -63,7 +95,7 @@
                 <input type="password" id="password" placeholder="Kata Sandi" 
                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-300">
             </div>
-            <button id="loginBtn" class="btn-grad w-full text-white font-bold py-3 rounded-xl">
+            <button id="loginBtn" class="btn-primary w-full justify-center py-3">
                 <i class="fas fa-sign-in-alt mr-2"></i> Masuk
             </button>
             <div id="errorMsg" class="error hidden mt-3"></div>
@@ -75,16 +107,10 @@
     </div>
 
     <script>
-        // ========== KONFIGURASI ==========
+        // ========== KONFIGURASI KEAMANAN ==========
         // Password yang benar (di-hash dengan SHA-256)
-        // Untuk keperluan demo, password: "batagor2026"
-        // Hash: 5c3e4a7b2f8d9e1a6b4c8d7e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9
-        const CORRECT_PASSWORD_HASH = "707725022e542021317a48f0c471ee553c139792d83fbc86efc19fc35f10958e"; // GANTI dengan hash nyata
-
-        // Konten dashboard yang dienkripsi (Base64 + XOR)
-        // Data asli adalah HTML dashboard (tanpa link asli)
-        // Link asli akan didekripsi saat runtime
-        const encryptedHTML = "UEsDBBQAAAAIA..."; // Ganti dengan konten terenkripsi nyata
+        // GANTI password di sini: "batagor2026" -> hash-nya di bawah
+        const CORRECT_PASSWORD_HASH = "5c3e4a7b2f8d9e1a6b4c8d7e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9"; // GANTI dengan hash nyata
 
         // Fungsi hash password (SHA-256)
         async function hashPassword(pwd) {
@@ -95,89 +121,13 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // Fungsi dekripsi sederhana (XOR dengan kunci)
-        function decryptXOR(encoded, key) {
-            // encoded adalah string Base64, decode dulu
-            let decoded;
+        // Fungsi dekripsi sederhana (XOR + Base64)
+        function decrypt(encryptedBase64, key) {
             try {
-                decoded = atob(encoded);
-            } catch(e) {
-                return "";
-            }
-            let result = "";
-            for (let i = 0; i < decoded.length; i++) {
-                result += String.fromCharCode(decoded.charCodeAt(i) ^ key.charCodeAt(i % key.length));
-            }
-            return result;
-        }
-
-        // Dashboard HTML yang sudah didekripsi (hardcoded untuk demo, sebaiknya enkripsi)
-        // Untuk keamanan lebih, semua link spreadsheet dienkripsi dan didekripsi saat runtime
-        const dashboardHTML = `
-            <div class="glass-card p-8">
-                <div class="text-center mb-6">
-                    <div class="inline-block p-4 bg-gradient-to-r from-red-600 to-yellow-600 rounded-2xl mb-4">
-                        <i class="fas fa-chart-line text-white text-4xl"></i>
-                    </div>
-                    <h1 class="text-3xl font-bold text-gray-800">BATAGOR</h1>
-                    <p class="text-gray-600">Bagan Tabel Monitoring Fasilitator</p>
-                    <div class="w-24 h-1 bg-gradient-to-r from-red-500 to-yellow-500 mx-auto mt-3 rounded-full"></div>
-                </div>
-
-                <!-- Info dan Tombol Akses -->
-                <div class="bg-white rounded-2xl shadow-xl p-8 mb-12 text-center">
-                    <p class="text-lg text-gray-700 mb-6">
-                        Akses ke sistem internal monitoring fasilitator, data OPD, dan pelaporan.
-                    </p>
-                    <div class="flex flex-wrap justify-center gap-4 mb-8">
-                        <span class="bg-red-100 text-red-600 px-6 py-2 rounded-full font-semibold shadow-sm">📊 Monitoring</span>
-                        <span class="bg-yellow-100 text-yellow-700 px-6 py-2 rounded-full font-semibold shadow-sm">🏢 Data OPD</span>
-                        <span class="bg-orange-100 text-orange-700 px-6 py-2 rounded-full font-semibold shadow-sm">📋 Pelaporan</span>
-                    </div>
-                    <a href="#" id="batagorLink" target="_blank" 
-                       class="inline-block bg-gradient-to-r from-red-600 to-yellow-600 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                        <i class="fas fa-lock mr-2"></i> Akses BATAGOR
-                    </a>
-                </div>
-
-                <!-- Penjelasan singkat -->
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="bg-white rounded-xl shadow-md p-6 text-center hover-scale">
-                        <div class="text-3xl mb-3">📊</div>
-                        <h3 class="font-bold text-red-600 mb-2">Monitoring</h3>
-                        <p class="text-gray-600 text-sm">Pantau progress seluruh fasilitator secara real-time</p>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-md p-6 text-center hover-scale">
-                        <div class="text-3xl mb-3">🏢</div>
-                        <h3 class="font-bold text-yellow-600 mb-2">Data OPD</h3>
-                        <p class="text-gray-600 text-sm">Informasi khusus perangkat daerah</p>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-md p-6 text-center hover-scale">
-                        <div class="text-3xl mb-3">📋</div>
-                        <h3 class="font-bold text-orange-600 mb-2">Pelaporan</h3>
-                        <p class="text-gray-600 text-sm">Laporan bulanan dan arsip kegiatan</p>
-                    </div>
-                </div>
-
-                <!-- Footer informasi akses -->
-                <div class="mt-12 text-center text-sm text-gray-500 border-t border-gray-200 pt-6">
-                    <p><i class="fas fa-info-circle mr-1 text-red-500"></i> Halaman ini berisi data internal. Akses terbatas untuk fasilitator dan OPD.</p>
-                    <p class="mt-2">Hubungi Admin: <a href="mailto:layanan.prodamai@gmail.com" class="text-red-600 hover:underline">layanan.prodamai@gmail.com</a> | (0293) 123456</p>
-                </div>
-            </div>
-        `;
-
-        // Link BATAGOR yang sebenarnya (dalam bentuk terenkripsi)
-        // Simpan link asli di sini dalam bentuk terenkripsi (misal menggunakan XOR sederhana)
-        const encryptedLink = "bW9uaXRvcmluZy1saW5r"; // contoh: "monitoring-link" di-base64
-        const linkKey = "batagor2026";
-
-        function decryptLink(encrypted, key) {
-            try {
-                let decoded = atob(encrypted);
+                const encrypted = atob(encryptedBase64);
                 let result = "";
-                for (let i = 0; i < decoded.length; i++) {
-                    result += String.fromCharCode(decoded.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+                for (let i = 0; i < encrypted.length; i++) {
+                    result += String.fromCharCode(encrypted.charCodeAt(i) ^ key.charCodeAt(i % key.length));
                 }
                 return result;
             } catch(e) {
@@ -185,22 +135,112 @@
             }
         }
 
-        // Setelah login sukses, tampilkan dashboard
+        // Data dashboard terenkripsi (link spreadsheet & HTML)
+        // Semua link dan konten dienkripsi dengan XOR menggunakan kunci "batagor2026"
+        // Berikut adalah contoh data terenkripsi (anda harus mengganti dengan enkripsi nyata)
+        // ================================================================
+        // Data asli (link) dienkripsi menjadi bentuk di bawah.
+        // Untuk membuat enkripsi, gunakan fungsi di console browser.
+        // ================================================================
+        
+        // Kunci enkripsi (sama dengan password)
+        const ENC_KEY = "batagor2026";
+        
+        // Enkripsi link monitoring utama
+        // Link asli: "https://docs.google.com/spreadsheets/d/1tyTRrbnNjdiuZ-UVzI52yHqiMwc6g0y51cd3Zjcel5w/edit?gid=1314547076"
+        const ENC_MAIN_LINK = "bW9uaXRvcmluZy1saW5rLWJhc2U2NC1kdW1teQ=="; // GANTI dengan hasil enkripsi nyata
+        
+        // Enkripsi link rekapan bulanan
+        const ENC_MONTHLY_LINK = "cmVrYXBhbi1idWxhbmFuLWxpbms=";
+        
+        // Enkripsi link data OPD
+        const ENC_OPD_LINK = "ZGF0YS1vcGQtbGluaw==";
+        
+        // Enkripsi embed URL spreadsheet (iframe src)
+        const ENC_EMBED_URL = "aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvZS8yUEFDWC0xdlRCX21vQjJyZEkzbTBCXzdpQU5Temh1bXlvdzVOZExoRy0waXRlSTczTzNXREFId1R2bkNPVGZLTERnOVBPTm1Jc3pEcWRTUG55dlhoNS9wdWJodG1sP2dpZD0xMzE0NTQ3MDc2JnNpbmdsZT10cnVl";
+
+        // HTML dashboard (statis, tanpa link asli) – link akan diisi oleh JavaScript setelah login
+        const dashboardHTML = `
+            <div class="max-w-7xl mx-auto">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <div class="inline-block p-3 bg-gradient-to-r from-red-600 to-yellow-600 rounded-2xl mb-3">
+                        <i class="fas fa-table text-white text-3xl"></i>
+                    </div>
+                    <h1 class="text-4xl font-bold bg-gradient-to-r from-red-600 to-yellow-600 bg-clip-text text-transparent">
+                        BATAGOR
+                    </h1>
+                    <p class="text-gray-600 mt-2">Bagan Tabel Monitoring Fasilitator</p>
+                    <div class="w-24 h-1 bg-gradient-to-r from-red-500 to-yellow-500 mx-auto mt-3 rounded-full"></div>
+                </div>
+
+                <!-- Spreadsheet Utama -->
+                <div class="card p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-800">📊 Monitoring Utama</h2>
+                            <p class="text-sm text-gray-500">Progress fasilitator terbaru (real-time)</p>
+                        </div>
+                        <a id="mainLink" href="#" target="_blank" class="btn-primary text-sm">
+                            <i class="fas fa-external-link-alt"></i> Buka di tab baru
+                        </a>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe id="mainIframe" class="responsive-iframe" src="about:blank" frameborder="0"></iframe>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-4 text-center">*Data diperbarui secara berkala. Klik "Buka di tab baru" untuk tampilan penuh.</p>
+                </div>
+
+                <!-- Opsi Spreadsheet Lain -->
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="card p-5 hover:shadow-lg transition">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fas fa-calendar-alt text-yellow-600 text-2xl"></i>
+                            <h3 class="font-bold text-lg">Rekapan Bulanan</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">Rekapitulasi per bulan</p>
+                        <a id="monthlyLink" href="#" target="_blank" class="text-red-600 hover:text-red-800 font-semibold inline-flex items-center">
+                            Akses Spreadsheet <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                    <div class="card p-5 hover:shadow-lg transition">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fas fa-building text-orange-600 text-2xl"></i>
+                            <h3 class="font-bold text-lg">Data OPD</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">Data perangkat daerah</p>
+                        <a id="opdLink" href="#" target="_blank" class="text-red-600 hover:text-red-800 font-semibold inline-flex items-center">
+                            Akses Spreadsheet <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center mt-10 text-xs text-gray-500 border-t pt-5">
+                    <p><i class="fas fa-lock mr-1 text-red-500"></i> Akses terbatas untuk fasilitator dan OPD.</p>
+                    <p>Admin: <a href="mailto:layanan.prodamai@gmail.com" class="text-red-600">layanan.prodamai@gmail.com</a></p>
+                </div>
+            </div>
+        `;
+
+        // Fungsi untuk menampilkan dashboard setelah login
         function showDashboard() {
+            // Dekripsi semua link
+            const mainLink = decrypt(ENC_MAIN_LINK, ENC_KEY);
+            const monthlyLink = decrypt(ENC_MONTHLY_LINK, ENC_KEY);
+            const opdLink = decrypt(ENC_OPD_LINK, ENC_KEY);
+            const embedUrl = decrypt(ENC_EMBED_URL, ENC_KEY);
+            
             document.getElementById('loginCard').classList.add('hidden');
             const dashboardDiv = document.getElementById('dashboard');
             dashboardDiv.classList.remove('hidden');
             dashboardDiv.innerHTML = dashboardHTML;
             
-            // Dekripsi link dan set ke tombol
-            const realLink = decryptLink(encryptedLink, linkKey);
-            const linkBtn = document.getElementById('batagorLink');
-            if (linkBtn && realLink) {
-                linkBtn.href = realLink;
-            } else {
-                // Fallback jika dekripsi gagal
-                if (linkBtn) linkBtn.href = "https://sites.google.com/view/batagor-mgl/home";
-            }
+            // Set link ke elemen
+            if (mainLink) document.getElementById('mainLink').href = mainLink;
+            if (monthlyLink) document.getElementById('monthlyLink').href = monthlyLink;
+            if (opdLink) document.getElementById('opdLink').href = opdLink;
+            if (embedUrl) document.getElementById('mainIframe').src = embedUrl;
         }
 
         // Event login
@@ -213,7 +253,6 @@
                 return;
             }
             
-            // Simulasi loading
             const btn = document.getElementById('loginBtn');
             const originalText = btn.innerHTML;
             btn.innerHTML = '<span class="loading"></span> Memeriksa...';
@@ -231,7 +270,7 @@
             }
         });
 
-        // Prevent enter key
+        // Enter key submit
         document.getElementById('password').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('loginBtn').click();
