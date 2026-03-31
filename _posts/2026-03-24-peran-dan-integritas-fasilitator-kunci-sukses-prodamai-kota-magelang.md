@@ -23,7 +23,7 @@ Damar menekankan agar fasilitator tidak hanya fokus pada administrasi, melainkan
 Selanjutnya, ia mengingatkan pentingnya disiplin, etika komunikasi, penampilan profesional, ketaatan pada aturan, serta kemampuan beradaptasi dan bekerja sama. Menurutnya, pemerintahan yang solid membutuhkan sinergi, bukan kompetisi tidak sehat antarpegawai.
 
 Sementara itu, Plt. Kepala Dinas Pemberdayaan Masyarakat, Perempuan, Perlindungan Anak, Pengendalian Penduduk dan KB (DPMP4KB) Kota Magelang, Wawan Setiadi, menjelaskan proses rekrutmen fasilitator Prodamai dilakukan secara terbuka selama sekitar satu bulan.
-
+![Prodamai]({{ site.baseurl }}/assets/images/uploads/Peran-dan-Integritas-Fasilitator-Kunci-Sukses-Prodamai-Kota-Magelang.jpg)
 “Dari 155 pendaftar, terpilih 70 fasilitator yang lolos seleksi. Mereka sudah mulai bekerja dan bahkan dilibatkan dalam kegiatan sosialisasi Prodamai beberapa waktu lalu,” terang Wawan.
 Menurutnya, para fasilitator wajib memahami Peraturan Wali Kota (Perwal) Nomor 15 Tahun 2025 tentang Prodamai, karena mereka akan menjadi ujung tombak pelaksanaan program di lapangan.
 “Fasilitator ini tenaga teknis yang bertugas mengidentifikasi kebutuhan, memecahkan masalah, serta mendampingi kegiatan Prodamai di masyarakat,” jelasnya.
