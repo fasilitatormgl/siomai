@@ -3,7 +3,7 @@ layout: default
 title: Rekap Realisasi PRODAMAI
 ---
 
-# Rekap Realisasi Program PRODAMAI
+## Rekap Realisasi Program PRODAMAI
 
 Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.030 RT di Kota Magelang. Berikut adalah data yang sedang dalam proses pendampingan.
 
@@ -40,7 +40,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
     <div class="kelurahan-grid">
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Wates</h3>
-            <p>Total RT: 45</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -49,7 +49,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Utara</h3>
-            <p>Total RT: 52</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -58,7 +58,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Selatan</h3>
-            <p>Total RT: 48</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -67,7 +67,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Potrobangsan</h3>
-            <p>Total RT: 68</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -76,7 +76,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kedungsari</h3>
-            <p>Total RT: 44</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -91,7 +91,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
     <div class="kelurahan-grid">
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magersari</h3>
-            <p>Total RT: 54</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -100,7 +100,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Utara</h3>
-            <p>Total RT: 56</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -109,7 +109,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Selatan</h3>
-            <p>Total RT: 42</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -118,7 +118,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Utara</h3>
-            <p>Total RT: 46</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -127,7 +127,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Selatan</h3>
-            <p>Total RT: 48</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -136,7 +136,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejowinangun Selatan</h3>
-            <p>Total RT: 36</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -151,7 +151,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
     <div class="kelurahan-grid">
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Cacaban</h3>
-            <p>Total RT: 44</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -160,7 +160,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kemirirejo</h3>
-            <p>Total RT: 62</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -169,7 +169,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Panjang</h3>
-            <p>Total RT: 52</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -178,7 +178,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejowinangun Utara</h3>
-            <p>Total RT: 40</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -187,7 +187,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Gelangan</h3>
-            <p>Total RT: 56</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
@@ -196,7 +196,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magelang</h3>
-            <p>Total RT: 72</p>
+            <p>Total RT: *** </p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
