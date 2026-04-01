@@ -30,22 +30,22 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
 
 <!-- ========== MENU KECAMATAN ========== -->
 <div class="kecamatan-menu">
-    <button class="kecamatan-btn active" data-kec="utara">🌍 Kecamatan Utara</button>
-    <button class="kecamatan-btn" data-kec="selatan">🌍 Kecamatan Selatan</button>
-    <button class="kecamatan-btn" data-kec="tengah">🌍 Kecamatan Tengah</button>
+    <button class="kecamatan-btn active" data-kec="utara">🌍 Kecamatan Magelang Utara</button>
+    <button class="kecamatan-btn" data-kec="selatan">🌍 Kecamatan Magelang Selatan</button>
+    <button class="kecamatan-btn" data-kec="tengah">🌍 Kecamatan Magelang Tengah</button>
 </div>
 
-<!-- ========== KECAMATAN UTARA ========== -->
+<!-- ========== KECAMATAN MAGELANG UTARA ========== -->
 <div id="kec-utara" class="kecamatan-content active">
     <div class="kelurahan-grid">
         <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kedungsari</h3>
-            <p>Total RT: 48</p>
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Wates</h3>
+            <p>Total RT: 45</p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_KEDUNGSARI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1xqHgIqIfgnNtGzNXl9Fdrsb1Hcw1BXUPwyyXVzZj8YI/edit?gid=0#gid=0" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Utara</h3>
@@ -54,67 +54,16 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_KRAMUT/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_KRAMATU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Wates</h3>
-            <p>Total RT: 44</p>
-            <div class="progress-status">
-                <div class="progress-bar-animate"></div>
-                <span class="progress-text">⏳ Sedang berjalan</span>
-            </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_WATES/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-        </div>
-        <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Utara</h3>
-            <p>Total RT: 56</p>
-            <div class="progress-status">
-                <div class="progress-bar-animate"></div>
-                <span class="progress-text">⏳ Sedang berjalan</span>
-            </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_TIDARU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-        </div>
-        <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejo Utara</h3>
-            <p>Total RT: 38</p>
-            <div class="progress-status">
-                <div class="progress-bar-animate"></div>
-                <span class="progress-text">⏳ Sedang berjalan</span>
-            </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_REJOU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-        </div>
-        <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kemirirejo</h3>
-            <p>Total RT: 62</p>
-            <div class="progress-status">
-                <div class="progress-bar-animate"></div>
-                <span class="progress-text">⏳ Sedang berjalan</span>
-            </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_KEMIRI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-        </div>
-        <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Utara</h3>
-            <p>Total RT: 46</p>
-            <div class="progress-status">
-                <div class="progress-bar-animate"></div>
-                <span class="progress-text">⏳ Sedang berjalan</span>
-            </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_JURANGOMBU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-        </div>
-    </div>
-</div>
-
-<!-- ========== KECAMATAN SELATAN ========== -->
-<div id="kec-selatan" class="kecamatan-content">
-    <div class="kelurahan-grid">
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Selatan</h3>
-            <p>Total RT: 45</p>
+            <p>Total RT: 48</p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_KRAMATS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_KRAMATS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Potrobangsan</h3>
@@ -123,8 +72,23 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_POTRO/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_POTROBANGSAN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kedungsari</h3>
+            <p>Total RT: 44</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_KEDUNGSARI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- ========== KECAMATAN MAGELANG SELATAN ========== -->
+<div id="kec-selatan" class="kecamatan-content">
+    <div class="kelurahan-grid">
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magersari</h3>
             <p>Total RT: 54</p>
@@ -132,7 +96,16 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_MAGERSARI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_MAGERSARI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Utara</h3>
+            <p>Total RT: 56</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_TIDARU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Selatan</h3>
@@ -141,16 +114,16 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_TIDARS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_TIDARS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejowinangun Selatan</h3>
-            <p>Total RT: 36</p>
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Utara</h3>
+            <p>Total RT: 46</p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_REJOWINANGUN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_JURANGOMBU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Selatan</h3>
@@ -159,7 +132,40 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_JURANGOMBUS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_JURANGOMBUS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejowinangun Selatan</h3>
+            <p>Total RT: 36</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_REJOWINANGS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- ========== KECAMATAN MAGELANG TENGAH ========== -->
+<div id="kec-tengah" class="kecamatan-content">
+    <div class="kelurahan-grid">
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Cacaban</h3>
+            <p>Total RT: 44</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_CACABAN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kemirirejo</h3>
+            <p>Total RT: 62</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_KEMIRIREJO/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Panjang</h3>
@@ -168,31 +174,16 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_PANJANG/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_PANJANG/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-    </div>
-</div>
-
-<!-- ========== KECAMATAN TENGAH ========== -->
-<div id="kec-tengah" class="kecamatan-content">
-    <div class="kelurahan-grid">
         <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magelang</h3>
-            <p>Total RT: 72</p>
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejowinangun Utara</h3>
+            <p>Total RT: 40</p>
             <div class="progress-status">
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_TENGAH_MAGELANG/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-        </div>
-        <div class="kelurahan-card">
-            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Cacaban</h3>
-            <p>Total RT: 44</p>
-            <div class="progress-status">
-                <div class="progress-bar-animate"></div>
-                <span class="progress-text">⏳ Sedang berjalan</span>
-            </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_TENGAH_CACABAN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_REJOWINANGNU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Gelangan</h3>
@@ -201,7 +192,16 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_TENGAH_GELANGAN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_GELANGAN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magelang</h3>
+            <p>Total RT: 72</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_MAGELANG/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
     </div>
 </div>
