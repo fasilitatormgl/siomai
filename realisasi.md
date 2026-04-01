@@ -28,167 +28,182 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
 
 ## 📊 Monitoring per Kelurahan
 
-Berikut adalah link akses spreadsheet realisasi setiap kelurahan. Klik tombol untuk membuka workbook yang berisi data per RW.
+<!-- ========== MENU KECAMATAN ========== -->
+<div class="kecamatan-menu">
+    <button class="kecamatan-btn active" data-kec="utara">🌍 Kecamatan Utara</button>
+    <button class="kecamatan-btn" data-kec="selatan">🌍 Kecamatan Selatan</button>
+    <button class="kecamatan-btn" data-kec="tengah">🌍 Kecamatan Tengah</button>
+</div>
 
-<div class="kelurahan-grid">
-    <!-- Kelurahan 1 -->
-    <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kedungsari</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+<!-- ========== KECAMATAN UTARA ========== -->
+<div id="kec-utara" class="kecamatan-content active">
+    <div class="kelurahan-grid">
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kedungsari</h3>
+            <p>Total RT: 48</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_KEDUNGSARI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_A/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-    <!-- Kelurahan 2 -->
-    <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Selatan</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Utara</h3>
+            <p>Total RT: 52</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_KRAMUT/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-    <!-- Kelurahan 2 -->
-    <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Utara</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Wates</h3>
+            <p>Total RT: 44</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_WATES/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-      <!-- Kelurahan 2 -->
-    <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Wates</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Utara</h3>
+            <p>Total RT: 56</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_TIDARU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Potrobangsan</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejo Utara</h3>
+            <p>Total RT: 38</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_REJOU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-         <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magersari</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kemirirejo</h3>
+            <p>Total RT: 62</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_KEMIRI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Utara</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Utara</h3>
+            <p>Total RT: 46</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_UTARA_JURANGOMBU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
     </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Selatan</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+</div>
+
+<!-- ========== KECAMATAN SELATAN ========== -->
+<div id="kec-selatan" class="kecamatan-content">
+    <div class="kelurahan-grid">
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Selatan</h3>
+            <p>Total RT: 45</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_KRAMATS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejowinangun Selatan</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Potrobangsan</h3>
+            <p>Total RT: 68</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_POTRO/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Selatan</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magersari</h3>
+            <p>Total RT: 54</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_MAGERSARI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Utara</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Selatan</h3>
+            <p>Total RT: 42</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_TIDARS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magelang</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejowinangun Selatan</h3>
+            <p>Total RT: 36</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_REJOWINANGUN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Cacaban</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Selatan</h3>
+            <p>Total RT: 48</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_JURANGOMBUS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Panjang</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Panjang</h3>
+            <p>Total RT: 52</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_SELATAN_PANJANG/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
     </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Gelangan</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+</div>
+
+<!-- ========== KECAMATAN TENGAH ========== -->
+<div id="kec-tengah" class="kecamatan-content">
+    <div class="kelurahan-grid">
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Magelang</h3>
+            <p>Total RT: 72</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_TENGAH_MAGELANG/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejo Utara</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Cacaban</h3>
+            <p>Total RT: 44</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_TENGAH_CACABAN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
-    </div>
-     <div class="kelurahan-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kemirirejo</h3>
-        <p>Total RT: xx</p>
-        <div class="progress-status">
-            <div class="progress-bar-animate"></div>
-            <span class="progress-text">⏳ Sedang berjalan</span>
+        <div class="kelurahan-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Gelangan</h3>
+            <p>Total RT: 56</p>
+            <div class="progress-status">
+                <div class="progress-bar-animate"></div>
+                <span class="progress-text">⏳ Sedang berjalan</span>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1LINK_TENGAH_GELANGAN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1LINK_B/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
     </div>
-    <!-- ... tambahkan hingga 17 kelurahan dengan pola yang sama -->
 </div>
 
 <p class="text-center mt-8 text-gray-500">*Data diperbarui secara berkala oleh fasilitator. Klik spreadsheet untuk melihat detail per RW.</p>
@@ -196,8 +211,6 @@ Berikut adalah link akses spreadsheet realisasi setiap kelurahan. Klik tombol un
 ## 🗺️ Struktur Data
 
 Setiap workbook kelurahan terdiri dari beberapa sheet sesuai jumlah RW. Data meliputi partisipasi masyarakat, realisasi anggaran, dan capaian kegiatan. Program masih berjalan, sehingga angka akan terus bertambah.
-
----
 
 <style>
 .stats-grid {
@@ -230,6 +243,43 @@ Setiap workbook kelurahan terdiri dari beberapa sheet sesuai jumlah RW. Data mel
     font-size: 0.9rem;
     margin-top: 0.5rem;
 }
+
+/* Menu Kecamatan */
+.kecamatan-menu {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+.kecamatan-btn {
+    background: white;
+    border: 2px solid #f59e0b;
+    color: #d97706;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.kecamatan-btn:hover {
+    background: #fef3c7;
+    transform: translateY(-2px);
+}
+.kecamatan-btn.active {
+    background: linear-gradient(135deg, #dc2626, #f59e0b);
+    color: white;
+    border-color: transparent;
+}
+
+/* Konten Kecamatan */
+.kecamatan-content {
+    display: none;
+}
+.kecamatan-content.active {
+    display: block;
+}
+
 .kelurahan-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -309,5 +359,33 @@ Setiap workbook kelurahan terdiri dari beberapa sheet sesuai jumlah RW. Data mel
     .kelurahan-grid {
         grid-template-columns: 1fr;
     }
+    .kecamatan-menu {
+        flex-direction: column;
+        align-items: center;
+    }
+    .kecamatan-btn {
+        width: 80%;
+        text-align: center;
+    }
 }
 </style>
+
+<script>
+    // Fungsi toggle menu kecamatan
+    document.querySelectorAll('.kecamatan-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Hapus class active dari semua button
+            document.querySelectorAll('.kecamatan-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Sembunyikan semua konten kecamatan
+            document.querySelectorAll('.kecamatan-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Tampilkan konten sesuai kecamatan yang dipilih
+            const kecamatan = this.getAttribute('data-kec');
+            document.getElementById(`kec-${kecamatan}`).classList.add('active');
+        });
+    });
+</script>
