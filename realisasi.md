@@ -54,7 +54,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_KRAMATU/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1UrlZxqBn-3lhbMJbJnhchadOB8qvZq3o4dvJRotQpMA/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Selatan</h3>
@@ -63,7 +63,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_KRAMATS/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1Txfd49xyqDTm0rSCgHX0VXadSNyB38FVmhtpC_WTShg/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Potrobangsan</h3>
@@ -72,7 +72,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_POTROBANGSAN/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1o202Qbmgej5ozV1CkGFryQh9Wl_RG4xBo6JmJg58y0o/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kedungsari</h3>
@@ -81,7 +81,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1LINK_KEDUNGSARI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1Xz3ZDfQua3yYPYNq1CUvR3r3xdVjPqlYEiQNcEO72A8/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
     </div>
 </div>
