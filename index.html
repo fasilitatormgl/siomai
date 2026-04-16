@@ -4,13 +4,20 @@ title: Beranda
 ---
 
 <!-- Hero Section -->
-<section class="gradient-primary text-white rounded-3xl p-12 mb-12">
-    <div class="text-center">
-        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">SIOMAI</h1>
-        <p class="text-2xl md:text-3xl mb-4 font-light">Sistem Informasi PRODAMAI</p>
-        <div class="h-1 w-24 bg-white opacity-30 mx-auto mb-4 rounded-full"></div>
-        <p class="text-xl max-w-3xl mx-auto opacity-90">Program Pemberdayaan Masyarakat dan Pembangunan Infrastruktur Kota Magelang</p>
-    </div>
+    <section class="text-white rounded-3xl p-12 mb-12 relative overflow-hidden"
+style="
+background: 
+linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+url('{{ site.baseurl }}/assets/images/backgroundmgl.png');
+background-size: cover;
+background-position: center;
+">
+
+<div class="relative z-10 text-center">
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-4">SIOMAI</h1>
+    <p class="text-2xl mb-2">Sistem Informasi PRODAMAI</p>
+    <p class="text-lg opacity-90">Program Pemberdayaan Masyarakat dan Pembangunan Infrastruktur Kota Magelang</p>
+</div>
     
     <!-- Statistik (4 card: Fasilitator, Progres Kegiatan, Kelurahan, Progres Program) -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
