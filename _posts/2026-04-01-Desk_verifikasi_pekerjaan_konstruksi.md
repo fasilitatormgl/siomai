@@ -21,5 +21,5 @@ Adapun fokus utama dalam tahap persiapan ini meliputi:
 Dalam proses ini, peserta secara aktif melakukan koordinasi dan diskusi guna memastikan seluruh data yang akan diverifikasi nantinya telah lengkap dan valid. Tahap persiapan ini juga menjadi momentum penting untuk mengidentifikasi potensi permasalahan sejak dini sehingga dapat dicarikan solusi sebelum masuk ke tahap pelaksanaan.
 
 Dengan dilaksanakannya persiapan desk verifikasi ini, diharapkan proses verifikasi kegiatan konstruksi Program Prodamai tahun 2026 dapat berjalan lebih efektif, efisien, serta menghasilkan data yang akurat dan dapat dipertanggungjawabkan.
-
+![Prodamai]({{ site.baseurl }}/assets/images/uploads/Desk_verifikasi_pekerjaan_konstruksi.jpg)
 Pemerintah Kota Magelang berkomitmen untuk terus meningkatkan tata kelola pembangunan yang transparan dan akuntabel, sehingga setiap kegiatan yang dilaksanakan melalui Program Prodamai dapat memberikan manfaat yang optimal bagi masyarakat.
