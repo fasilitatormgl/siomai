@@ -96,7 +96,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/---/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1std-Wo8JqjnCg-8cmhlHXq9yINNMoiCGUfWBIQzY9FI/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Utara</h3>
@@ -105,7 +105,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/---/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1_qpwJQWbb-_m2HgTnPw8EQckEovzxZh-UEbR6ML0T1Q/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Tidar Selatan</h3>
@@ -114,7 +114,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/---/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1pPN3sys7fcplkYcjTNVzptLJpiavTtIWI3ZACOUf1gY/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Utara</h3>
@@ -123,7 +123,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/---/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1q5bB7lBGoyWrR_kPA_WIL-7IBJ0DosmBMtdcT-NXhT0/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Jurangombo Selatan</h3>
@@ -132,7 +132,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/---/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1NmP6QCH8VezzI6NRvwuEjYSwKCxifDmGbhc-V0B4ahk/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Rejowinangun Selatan</h3>
@@ -141,7 +141,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/---/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1JrRjxneWe88aUJAqpgcEZvRtyQ_cKDNpCnT07kMoYF8/edit" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
     </div>
 </div>
