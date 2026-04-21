@@ -45,7 +45,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
                 <div class="progress-bar-animate"></div>
                 <span class="progress-text">⏳ Sedang berjalan</span>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1xqHgIqIfgnNtGzNXl9Fdrsb1Hcw1BXUPwyyXVzZj8YI/edit?gid=0#gid=0" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
+            <a href="https://docs.google.com/spreadsheets/d/1G_e6VBcy93f8MyPsJIbRVTcyuWR1EPnt5veTUze944Y/edit?usp=drive_link" target="_blank" class="btn-spreadsheet">Buka Spreadsheet <i class="fas fa-external-link-alt"></i></a>
         </div>
         <div class="kelurahan-card">
             <h3><i class="fas fa-map-marker-alt"></i> Kelurahan Kramat Utara</h3>
