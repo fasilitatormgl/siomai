@@ -13,7 +13,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         <div class="stat-label">Kelurahan</div>
     </div>
     <div class="stat-card">
-        <div class="stat-number">1.032</div>
+        <div class="stat-number">1.030</div>
         <div class="stat-label">RT</div>
     </div>
     <div class="stat-card">
