@@ -42,10 +42,10 @@ Berikut adalah dokumen peraturan, Surat Edaran (SE), dan petunjuk teknis yang te
       </tr>
       <tr>
         <td>3</td>
-        <td>Juknis Fasilitator Lapangan</td>
+        <td>SE PBJ Prodamai Kelurahan 2026</td>
         <td>Petunjuk teknis di lapangan</td>
         <td>
-          <a href="{{ site.baseurl }}/assets/dokumen/juknis-fasilitator.pdf" target="_blank" rel="noopener noreferrer">
+          <a href="{{ site.baseurl }}/assets/dokumen/SE_PBJ_Prodamai_Kelurahan_2026.pdf" target="_blank" rel="noopener noreferrer">
             Unduh PDF
           </a>
         </td>
