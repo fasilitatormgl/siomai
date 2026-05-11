@@ -22,7 +22,7 @@ Berikut adalah dokumen peraturan, Surat Edaran (SE), dan petunjuk teknis yang te
     <tbody>
       <tr>
         <td>1</td>
-        <td>Salinan Perwal ProDamai - Pedoman Fasilitator</td>
+        <td>Salinan Perwal ProDamai no. 15 Tahun 2025 - Pedoman Fasilitator</td>
         <td>Pedoman umum bagi fasilitator</td>
         <td>
           <a href="{{ site.baseurl }}/assets/dokumen/Salinan-Perwal-Prodamai.pdf" target="_blank" rel="noopener noreferrer">
@@ -32,10 +32,10 @@ Berikut adalah dokumen peraturan, Surat Edaran (SE), dan petunjuk teknis yang te
       </tr>
       <tr>
         <td>2</td>
-        <td>SE No. 02/2025 - Jadwal Kegiatan</td>
-        <td>Jadwal kegiatan triwulan I</td>
+        <td>SE SE TEKNIS PELAKSANAAN MUSREN RKPD TAHUN 2027</td>
+        <td>SE JUKNIS MUSREN 2027</td>
         <td>
-          <a href="{{ site.baseurl }}/assets/dokumen/se-02-2025.pdf" target="_blank" rel="noopener noreferrer">
+          <a href="{{ site.baseurl }}/assets/dokumen/SE-TEKNIS-PELAKSANAAN-MUSREN-RKPD-TAHUN-2027.pdf" target="_blank" rel="noopener noreferrer">
             Unduh PDF
           </a>
         </td>
