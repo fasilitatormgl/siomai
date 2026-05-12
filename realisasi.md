@@ -1,11 +1,11 @@
-<img width="65" height="18" alt="image" src="https://github.com/user-attachments/assets/fb345291-210b-42f2-8b1a-c5383cf4a92d" />---
+---
 layout: default
 title: Rekap Realisasi PRODAMAI
 ---
 
 ## Rekap Realisasi Program PRODAMAI
 
-Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.030 RT di Kota Magelang. Berikut adalah data yang sedang dalam proses pendampingan REALISASI TAHUN 2026.
+Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.029 RT di Kota Magelang. Berikut adalah data yang sedang dalam proses pendampingan REALISASI TAHUN 2026.
 
 <div class="stats-grid">
     <div class="stat-card">
@@ -13,7 +13,7 @@ Program Pemberdayaan Masyarakat (PRODAMAI) terus bergerak di 17 kelurahan dan 1.
         <div class="stat-label">Kelurahan</div>
     </div>
     <div class="stat-card">
-        <div class="stat-number">1.030</div>
+        <div class="stat-number">1.029</div>
         <div class="stat-label">RT</div>
     </div>
     <div class="stat-card">
