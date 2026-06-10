@@ -28,6 +28,6 @@ defaults:
     values:
       layout: "default"
 
-# 🚀 MEMAKSA JEKYLL UNTUK MENYERTAKAN FILE CONFIG CMS
+# Memaksa Jekyll untuk meloloskan folder admin ke Firebase
 include:
-  - admin/config.yml
+  - admin
