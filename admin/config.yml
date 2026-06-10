@@ -22,4 +22,3 @@ collections:
       - { label: "Kategori", name: "categories", widget: "string"}
       - { label: "Gambar Utama", name: "image", widget: "image", required: false}
       - { label: "Konten", name: "body", widget: "markdown"}
-      - { label: "Isi Berita / Artikel", name: "body", widget: "markdown" }
