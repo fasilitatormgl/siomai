@@ -1,19 +1,25 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: github
+  repo: fasilitatormgl/siomai # Ganti ini! Contoh: fasilitatormgl/siomai
+  branch: main # Ubah ke master jika branch utama Anda namanya master
 
+# Pengaturan folder gambar otomatis
 media_folder: "/assets/images/uploads"
 public_folder: "/siomai/assets/images/uploads"
 
+# Pengaturan Form Penulisan Artikel
 collections:
   - name: "artikel"
-    label: "Artikel"
+    label: "Artikel / Berita"
     folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - {label: "Judul", name: "title", widget: "string"}
-      - {label: "Tanggal", name: "date", widget: "datetime"}
-      - {label: "Kategori", name: "categories", widget: "string"}
-      - {label: "Gambar Utama", name: "image", widget: "image", required: false}
-      - {label: "Konten", name: "body", widget: "markdown"}
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Tanggal", name: "date", widget: "datetime" }
+      - { label: "Gambar Cover", name: "image", widget: "image", required: false }
+      - { label: "Kategori", name: "categories", widget: "string"}
+      - { label: "Gambar Utama", name: "image", widget: "image", required: false}
+      - { label: "Konten", name: "body", widget: "markdown"}
+      - { label: "Isi Berita / Artikel", name: "body", widget: "markdown" }
