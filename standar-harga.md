@@ -4,7 +4,7 @@ title: Standar Harga Kegiatan
 ---
 ---
 
-## Standar Harga Kegiatan PRODAMAI
+### Standar Harga Kegiatan PRODAMAI
 
 Standar biaya yang digunakan dalam kegiatan fasilitasi dan operasional PRODAMAI Kota Magelang (berlaku mulai 2026).
 *Standar harga dapat berubah sesuai kebijakan terbaru.*
@@ -40,7 +40,7 @@ Untuk kemudahan cetak dan distribusi, standar harga juga tersedia dalam format P
 
 > *Jika pratinjau tidak tampil, pastikan browser Anda mendukung PDF inline. Klik tombol "Lihat PDF (Tab Baru)" untuk membuka file.*
 
-## SE Kegiatan PRODAMAI
+### SE Kegiatan PRODAMAI
 
 Surat Edaran yang digunakan dalam kegiatan fasilitasi dan operasional PRODAMAI Kota Magelang.
 *Standar harga dapat berubah sesuai kebijakan terbaru.*
