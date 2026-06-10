@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <script>
+  // 🕵️ DETEKTIF URL: Jika pengunjung membuka lewat github.io, otomatis lempar ke Firebase
+  if (window.location.hostname.includes("github.io")) {
+    // Menghapus sub-folder '/siomai' dari link lama agar jalurnya pas
+    var jalurBaru = window.location.pathname.replace("/siomai", "");
+    window.location.replace("https://siomaimagelang.web.app" + jalurBaru + window.location.search + window.location.hash);
+  }
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} - {{ site.title }}</title>
