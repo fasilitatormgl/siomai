@@ -6,12 +6,12 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://w
 // === FIREBASE CONFIGURATION ===
 // GANTI DENGAN CONFIG FIREBASE PROYEK SIOMAI ANDA
 const firebaseConfig = {
-    apiKey: "API_KEY_ANDA",
-    authDomain: "PROJECT_ID.firebaseapp.com",
-    projectId: "PROJECT_ID",
-    storageBucket: "PROJECT_ID.appspot.com",
-    messagingSenderId: "SENDER_ID",
-    appId: "APP_ID"
+  apiKey: "AIzaSyDv9zylwxNutc2zV-0U2yXHa6ioT0usBVQ",
+  authDomain: "siomaimagelang.firebaseapp.com",
+  projectId: "siomaimagelang",
+  storageBucket: "siomaimagelang.firebasestorage.app",
+  messagingSenderId: "365880128921",
+  appId: "1:365880128921:web:59dc3e4a19968300464f08"
 };
 
 // Initialize Firebase
