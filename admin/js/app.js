@@ -8,7 +8,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDv9zylwxNutc2zV-0U2yXHa6ioT0usBVQ",
   authDomain: "siomaimagelang.firebaseapp.com",
   projectId: "siomaimagelang",
-  storageBucket: "siomaimagelang.firebasestorage.app", // Pastikan ini sesuai dengan console firebase terbaru Anda
+  storageBucket: "siomaimagelang.firebasestorage.app", 
   messagingSenderId: "365880128921",
   appId: "1:365880128921:web:59dc3e4a19968300464f08"
 };
@@ -28,7 +28,6 @@ const editorForm = document.getElementById('editor-form');
 
 // === CUSTOM IMAGE HANDLER FOR QUILL (Agar banyak gambar ter-upload ke Storage) ===
 const imageHandler = () => {
-    // 1. Buat input file secara otomatis saat tombol gambar diklik
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
@@ -38,23 +37,16 @@ const imageHandler = () => {
         const file = input.files[0];
         if (!file) return;
 
-        // Beri indikasi ke user bahwa gambar sedang diproses
         const uploadStatusEl = document.getElementById('upload-status');
         if (uploadStatusEl) uploadStatusEl.textContent = 'Menyisipkan gambar ke dalam postingan...';
 
         try {
-            // 2. Upload gambar inline ke folder 'berita/inline/' di Firebase Storage
             const storageRef = ref(storage, 'berita/inline/' + Date.now() + '_' + file.name);
             const uploadTask = await uploadBytesResumable(storageRef, file);
-            
-            // 3. Ambil URL download-nya
             const downloadURL = await getDownloadURL(uploadTask.ref);
             
-            // 4. Masukkan gambar ke posisi kursor user saat ini di dalam editor
             const range = quill.getSelection();
             quill.insertEmbed(range.index, 'image', downloadURL);
-            
-            // Pindahkan kursor ke setelah gambar agar user bisa lanjut mengetik
             quill.setSelection(range.index + 1);
             
             if (uploadStatusEl) uploadStatusEl.textContent = 'Gambar berhasil disisipkan!';
@@ -68,14 +60,13 @@ const imageHandler = () => {
 };
 
 // === INITIALIZE QUILL EDITOR WITH FULL TOOLBAR ===
-// Kita daftarkan opsi toolbar yang lengkap, termasuk tombol 'image'
 const toolbarOptions = [
     [{ 'header': [1, 2, 3, false] }],
     ['bold', 'italic', 'underline', 'strike'],        
     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
     [{ 'color': [] }, { 'background': [] }],          
     [{ 'align': [] }],
-    ['link', 'image'], // Ada tombol link dan image di sini
+    ['link', 'image'], 
     ['clean']                                         
 ];
 
@@ -86,7 +77,7 @@ const quill = new Quill('#editor-container', {
         toolbar: {
             container: toolbarOptions,
             handlers: {
-                image: imageHandler // Menimpa fungsi tombol gambar bawaan dengan fungsi kita
+                image: imageHandler 
             }
         }
     }
@@ -122,6 +113,19 @@ loginForm.addEventListener('submit', async (e) => {
 logoutBtn.addEventListener('click', () => {
     signOut(auth);
 });
+
+// === FITUR LIHAT / SEMBUNYIKAN PASSWORD (Dibuat Lebih Aman) ===
+const togglePasswordBtn = document.getElementById('toggle-password');
+const passwordInput = document.getElementById('login-password');
+
+// Menggunakan pengecekan 'if' agar kode tidak macet jika tombol belum ada di HTML
+if (togglePasswordBtn && passwordInput) {
+    togglePasswordBtn.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePasswordBtn.textContent = type === 'password' ? 'Lihat' : 'Sembunyikan';
+    });
+}
 
 // === UPLOAD GAMBAR COVER LOGIC (Utama) ===
 const imageInput = document.getElementById('post-image');
@@ -159,7 +163,7 @@ editorForm.addEventListener('submit', async (e) => {
     const category = document.getElementById('post-category').value;
     const status = document.getElementById('post-status').value;
     const imageUrl = document.getElementById('post-image-url').value;
-    const content = quill.root.innerHTML; // Gambar inline otomatis tersimpan di sini berupa tag <img> berserta link URL Storage-nya
+    const content = quill.root.innerHTML; 
 
     const data = {
         title, category, status, imageUrl, content,
@@ -235,7 +239,6 @@ async function loadBerita() {
 // Edit Berita Full Implementation
 async function editBerita(id) {
     try {
-        // Ambil data spesifik dari Firestore berdasarkan ID
         const snap = await getDocs(collection(db, "berita"));
         let currentData = null;
         
@@ -245,16 +248,13 @@ async function editBerita(id) {
 
         if(!currentData) return alert("Data tidak ditemukan!");
 
-        // Isi form dashboard dengan data lama
         document.getElementById('post-id').value = id;
         document.getElementById('post-title').value = currentData.title;
         document.getElementById('post-category').value = currentData.category;
         document.getElementById('post-status').value = currentData.status;
         
-        // Load konten ke Quill (termasuk gambar-gambar di dalamnya jika ada)
         quill.root.innerHTML = currentData.content;
 
-        // Load gambar cover utama jika ada
         if (currentData.imageUrl) {
             document.getElementById('post-image-url').value = currentData.imageUrl;
             document.getElementById('image-preview').src = currentData.imageUrl;
@@ -263,7 +263,6 @@ async function editBerita(id) {
             document.getElementById('image-preview-container').classList.add('hidden');
         }
 
-        // Pindahkan tampilan ke halaman form edit
         document.querySelectorAll('.section').forEach(el => el.classList.add('hidden'));
         document.getElementById('tambah-berita').classList.remove('hidden');
 
