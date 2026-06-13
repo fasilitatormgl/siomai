@@ -23,16 +23,15 @@
                     <label class="block text-sm font-medium text-gray-700">Email</label>
                     <input type="email" id="login-email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
                 </div>
-               <div class="mb-6">
-    <label class="block text-sm font-medium text-gray-700">Password</label>
-    <div class="relative mt-1">
-        <input type="password" id="login-password" class="block w-full px-3 py-2 pr-16 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
-        
-        <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none">
-            Lihat
-        </button>
-    </div>
-</div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700">Password</label>
+                    <div class="relative mt-1">
+                        <input type="password" id="login-password" class="block w-full px-3 py-2 pr-16 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                        <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none">
+                            Lihat
+                        </button>
+                    </div>
+                </div>
                 <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Masuk</button>
                 <p id="login-error" class="text-red-500 text-sm mt-3 hidden"></p>
             </form>
@@ -68,7 +67,7 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Slug</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                             </tr>
@@ -87,11 +86,39 @@
                     <form id="editor-form">
                         <input type="hidden" id="post-id">
                         
+                        <!-- Judul Berita -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Judul Berita</label>
-                            <input type="text" id="post-title" class="w-full px-3 py-2 border rounded-md" required>
+                            <input type="text" id="post-title" class="w-full px-3 py-2 border rounded-md" required oninput="generateSlug()">
                         </div>
 
+                        <!-- FIELD SLUG -->
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Slug URL 
+                                <span class="text-xs text-gray-500">(otomatis dari judul)</span>
+                            </label>
+                            <div class="flex gap-2">
+                                <input 
+                                    type="text" 
+                                    id="post-slug" 
+                                    class="w-full px-3 py-2 border rounded-md bg-gray-50" 
+                                    placeholder="slug-akan-terisi-otomatis"
+                                    readonly
+                                >
+                                <button 
+                                    type="button" 
+                                    id="edit-slug-btn"
+                                    class="px-3 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm whitespace-nowrap"
+                                    onclick="toggleSlugEdit()"
+                                >
+                                    ✏️ Edit
+                                </button>
+                            </div>
+                            <small class="text-gray-500">Contoh: program-prodamai-magelang-2025</small>
+                        </div>
+
+                        <!-- Kategori & Status (Grid 2 Kolom) -->
                         <div class="grid grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
@@ -109,6 +136,7 @@
                             </div>
                         </div>
 
+                        <!-- Upload Gambar Cover -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Upload Gambar Cover</label>
                             <input type="file" id="post-image" class="w-full" accept="image/*">
@@ -119,11 +147,13 @@
                             <p id="upload-status" class="text-sm text-blue-500 mt-1"></p>
                         </div>
 
+                        <!-- Editor Konten -->
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Konten Berita</label>
                             <div id="editor-container"></div>
                         </div>
 
+                        <!-- Tombol Aksi -->
                         <div class="flex space-x-2">
                             <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Simpan Berita</button>
                             <button type="button" id="btn-preview" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Preview</button>
@@ -162,6 +192,55 @@
             document.querySelectorAll('.section').forEach(el => el.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
         }
+        
+        // Slug Generator Functions
+        function generateSlugFromTitle(title) {
+            return title
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '')
+                .substring(0, 100);
+        }
+
+        window.generateSlug = function() {
+            const titleInput = document.getElementById('post-title');
+            const slugInput = document.getElementById('post-slug');
+            
+            if (slugInput && !slugInput.dataset.manualEdit) {
+                slugInput.value = generateSlugFromTitle(titleInput.value);
+            }
+        };
+
+        window.toggleSlugEdit = function() {
+            const slugInput = document.getElementById('post-slug');
+            const editBtn = document.getElementById('edit-slug-btn');
+            
+            if (slugInput.readOnly) {
+                // Mode edit manual
+                slugInput.readOnly = false;
+                slugInput.classList.remove('bg-gray-50');
+                slugInput.classList.add('bg-white', 'border-2', 'border-yellow-500');
+                slugInput.dataset.manualEdit = 'true';
+                editBtn.innerHTML = '🔄 Reset';
+                editBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+                editBtn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+            } else {
+                // Kembali ke auto-generate
+                slugInput.readOnly = true;
+                slugInput.classList.add('bg-gray-50');
+                slugInput.classList.remove('bg-white', 'border-2', 'border-yellow-500');
+                delete slugInput.dataset.manualEdit;
+                editBtn.innerHTML = '✏️ Edit';
+                editBtn.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+                editBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                
+                // Generate ulang dari judul
+                const titleInput = document.getElementById('post-title');
+                slugInput.value = generateSlugFromTitle(titleInput.value);
+            }
+        };
     </script>
 </body>
 </html>
