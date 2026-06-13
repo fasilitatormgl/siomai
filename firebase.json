@@ -10,16 +10,15 @@
     ],
     "rewrites": [
       {
-        "source": "/baca/**",
-        "destination": "/baca.html"
-      },
-      {
-        "source": "/baca",
-        "destination": "/baca.html"
-      },
-      {
         "source": "/admin/**",
         "destination": "/admin/index.html"
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/baca/:slug*",
+        "destination": "/baca.html?slug=:slug*",
+        "type": 301
       }
     ]
   }
