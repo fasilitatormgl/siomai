@@ -173,7 +173,7 @@ background-position: center;
                 
                 // ✅ BUAT URL FRIENDLY DENGAN SLUG
                 const urlSlug = data.slug || 'berita';
-                const beritaUrl = `baca/${urlSlug}-${id}`;
+                const beritaUrl = `baca?slug=${urlSlug}-${id}`;
                 
                 // Format tanggal
                 let tanggal = '';
