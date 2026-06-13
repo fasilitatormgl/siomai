@@ -340,7 +340,7 @@ title: Detail Artikel
                 
                 // Buat URL friendly
                 const urlSlug = data.slug || 'berita';
-                const beritaUrl = `baca/${urlSlug}-${id}`;
+                const beritaUrl = `baca?slug=${urlSlug}-${id}`;
                 
                 // Format tanggal
                 let tanggal = '';
