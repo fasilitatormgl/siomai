@@ -1,23 +1,44 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 // === FIREBASE CONFIGURATION ===
 const firebaseConfig = {
   apiKey: "AIzaSyDv9zylwxNutc2zV-0U2yXHa6ioT0usBVQ",
   authDomain: "siomaimagelang.firebaseapp.com",
   projectId: "siomaimagelang",
-  storageBucket: "siomaimagelang.firebasestorage.app", 
-  messagingSenderId: "365880128921",
-  appId: "1:365880128921:web:59dc3e4a19968300464f08"
+  // Firebase Storage dihapus dari konfigurasi karena kita pakai yang gratis dari ImgBB
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const storage = getStorage(app);
+
+// === CONFIGURATION IMGBB (GRATIS) ===
+// Masukkan API KEY yang Anda dapatkan dari api.imgbb.com di bawah ini:
+const IMGBB_API_KEY = "PASTE_API_KEY_IMGBB_MU_DI_SINI"; 
+
+// Fungsi Pembantu untuk Upload ke ImgBB
+async function uploadToImgBB(file) {
+    if (IMGBB_API_KEY === "751653229ba1e85aa3bfc49f03e2d5cb") {
+        throw new Error("API Key ImgBB belum dimasukkan di file app.js!");
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: "POST",
+        body: formData
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        return result.data.url; // Mengembalikan URL gambar langsung
+    } else {
+        throw new Error(result.error.message || "Gagal upload ke ImgBB");
+    }
+}
 
 // === UI ELEMENTS ===
 const loginScreen = document.getElementById('login-screen');
@@ -26,7 +47,7 @@ const loginForm = document.getElementById('login-form');
 const logoutBtn = document.getElementById('logout-btn');
 const editorForm = document.getElementById('editor-form');
 
-// === CUSTOM IMAGE HANDLER FOR QUILL (Agar banyak gambar ter-upload ke Storage) ===
+// === CUSTOM IMAGE HANDLER FOR QUILL (Inline Image via ImgBB) ===
 const imageHandler = () => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
@@ -41,9 +62,8 @@ const imageHandler = () => {
         if (uploadStatusEl) uploadStatusEl.textContent = 'Menyisipkan gambar ke dalam postingan...';
 
         try {
-            const storageRef = ref(storage, 'berita/inline/' + Date.now() + '_' + file.name);
-            const uploadTask = await uploadBytesResumable(storageRef, file);
-            const downloadURL = await getDownloadURL(uploadTask.ref);
+            // Upload ke ImgBB gratisan
+            const downloadURL = await uploadToImgBB(file);
             
             const range = quill.getSelection();
             quill.insertEmbed(range.index, 'image', downloadURL);
@@ -114,11 +134,10 @@ logoutBtn.addEventListener('click', () => {
     signOut(auth);
 });
 
-// === FITUR LIHAT / SEMBUNYIKAN PASSWORD (Dibuat Lebih Aman) ===
+// === FITUR LIHAT / SEMBUNYIKAN PASSWORD ===
 const togglePasswordBtn = document.getElementById('toggle-password');
 const passwordInput = document.getElementById('login-password');
 
-// Menggunakan pengecekan 'if' agar kode tidak macet jika tombol belum ada di HTML
 if (togglePasswordBtn && passwordInput) {
     togglePasswordBtn.addEventListener('click', () => {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -127,32 +146,29 @@ if (togglePasswordBtn && passwordInput) {
     });
 }
 
-// === UPLOAD GAMBAR COVER LOGIC (Utama) ===
+// === UPLOAD GAMBAR COVER LOGIC (Via ImgBB) ===
 const imageInput = document.getElementById('post-image');
-imageInput.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+if (imageInput) {
+    imageInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
 
-    const storageRef = ref(storage, 'berita/cover/' + Date.now() + '_' + file.name);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    const statusEl = document.getElementById('upload-status');
+        const statusEl = document.getElementById('upload-status');
+        statusEl.textContent = 'Mengupload gambar cover ke ImgBB...';
 
-    statusEl.textContent = 'Mengupload gambar cover...';
-
-    uploadTask.on('state_changed', 
-        (snapshot) => {}, 
-        (error) => {
-            statusEl.textContent = 'Upload gagal: ' + error.message;
-        }, 
-        async () => {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        try {
+            // Upload ke ImgBB gratisan
+            const downloadURL = await uploadToImgBB(file);
+            
             document.getElementById('post-image-url').value = downloadURL;
             document.getElementById('image-preview').src = downloadURL;
             document.getElementById('image-preview-container').classList.remove('hidden');
             statusEl.textContent = 'Upload cover berhasil!';
+        } catch (error) {
+            statusEl.textContent = 'Upload gagal: ' + error.message;
         }
-    );
-});
+    });
+}
 
 // === CRUD BERITA ===
 editorForm.addEventListener('submit', async (e) => {
