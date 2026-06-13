@@ -7,7 +7,6 @@ const firebaseConfig = {
   apiKey: "AIzaSyDv9zylwxNutc2zV-0U2yXHa6ioT0usBVQ",
   authDomain: "siomaimagelang.firebaseapp.com",
   projectId: "siomaimagelang",
-  // Firebase Storage dihapus dari konfigurasi karena kita pakai yang gratis dari ImgBB
 };
 
 // Initialize Firebase
@@ -16,7 +15,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // === CONFIGURATION IMGBB (GRATIS) ===
-// Masukkan API KEY yang Anda dapatkan dari api.imgbb.com di bawah ini:
 const IMGBB_API_KEY = "751653229ba1e85aa3bfc49f03e2d5cb"; 
 
 // Fungsi Pembantu untuk Upload ke ImgBB
@@ -34,10 +32,21 @@ async function uploadToImgBB(file) {
 
     const result = await response.json();
     if (result.success) {
-        return result.data.url; // Mengembalikan URL gambar langsung
+        return result.data.url;
     } else {
         throw new Error(result.error.message || "Gagal upload ke ImgBB");
     }
+}
+
+// === FUNGSI HELPER SLUG ===
+function generateSlugFromTitle(title) {
+    return title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')     // Hapus karakter spesial
+        .replace(/\s+/g, '-')               // Ganti spasi dengan dash
+        .replace(/-+/g, '-')                // Hindari dash ganda
+        .replace(/^-|-$/g, '')              // Hapus dash di awal/akhir
+        .substring(0, 100);                 // Batasi panjang maksimal
 }
 
 // === UI ELEMENTS ===
@@ -62,7 +71,6 @@ const imageHandler = () => {
         if (uploadStatusEl) uploadStatusEl.textContent = 'Menyisipkan gambar ke dalam postingan...';
 
         try {
-            // Upload ke ImgBB gratisan
             const downloadURL = await uploadToImgBB(file);
             
             const range = quill.getSelection();
@@ -157,7 +165,6 @@ if (imageInput) {
         statusEl.textContent = 'Mengupload gambar cover ke ImgBB...';
 
         try {
-            // Upload ke ImgBB gratisan
             const downloadURL = await uploadToImgBB(file);
             
             document.getElementById('post-image-url').value = downloadURL;
@@ -180,26 +187,41 @@ editorForm.addEventListener('submit', async (e) => {
     const status = document.getElementById('post-status').value;
     const imageUrl = document.getElementById('post-image-url').value;
     const content = quill.root.innerHTML; 
+    
+    // ✅ AMBIL SLUG - jika kosong, generate dari judul
+    const slugInput = document.getElementById('post-slug');
+    const slug = slugInput?.value || generateSlugFromTitle(title);
 
     const data = {
-        title, category, status, imageUrl, content,
+        title, 
+        slug,        // ✅ SIMPAN SLUG
+        category, 
+        status, 
+        imageUrl, 
+        content,
         updatedAt: serverTimestamp()
     };
 
     try {
         if (id) {
+            // Update berita existing
             await updateDoc(doc(db, "berita", id), data);
             alert("Berita berhasil diupdate!");
         } else {
+            // Tambah berita baru
             data.createdAt = serverTimestamp();
             await addDoc(collection(db, "berita"), data);
             alert("Berita berhasil ditambahkan!");
         }
+        
+        // Reset form
         editorForm.reset();
         quill.root.innerHTML = '';
+        document.getElementById('post-slug').value = '';  // ✅ Reset slug
         document.getElementById('image-preview-container').classList.add('hidden');
         document.getElementById('post-id').value = '';
         
+        // Kembali ke list berita
         document.querySelectorAll('.section').forEach(el => el.classList.add('hidden'));
         document.getElementById('list-berita').classList.remove('hidden');
         loadBerita();
@@ -218,6 +240,11 @@ async function loadBerita() {
         const querySnapshot = await getDocs(collection(db, "berita"));
         tbody.innerHTML = '';
         
+        if (querySnapshot.empty) {
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-gray-500">Belum ada berita</td></tr>';
+            return;
+        }
+        
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const tr = document.createElement('tr');
@@ -225,94 +252,155 @@ async function loadBerita() {
             let statusClass = data.status === 'publish' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
             
             tr.innerHTML = `
-                <td class="px-6 py-4 whitespace-nowrap">${data.title}</td>
-                <td class="px-6 py-4 whitespace-nowrap capitalize">${data.category}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="font-medium text-gray-900">${data.title || 'Tanpa Judul'}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${data.slug ? `<code class="bg-gray-100 px-2 py-1 rounded text-xs">${data.slug}</code>` : '<span class="text-red-400 text-xs">Belum ada slug</span>'}
+                </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
-                        ${data.status}
+                        ${data.status || 'draft'}
                     </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button class="text-indigo-600 hover:text-indigo-900 mr-3 edit-btn" data-id="${doc.id}">Edit</button>
-                    <button class="text-red-600 hover:text-red-900 delete-btn" data-id="${doc.id}">Hapus</button>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                    <button class="text-indigo-600 hover:text-indigo-900 edit-btn" data-id="${doc.id}">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="text-red-600 hover:text-red-900 delete-btn" data-id="${doc.id}">
+                        <i class="fas fa-trash"></i> Hapus
+                    </button>
                 </td>
             `;
             tbody.appendChild(tr);
         });
 
+        // Attach event listeners
         document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => editBerita(e.target.dataset.id));
+            btn.addEventListener('click', (e) => editBerita(e.target.closest('button').dataset.id));
         });
         document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => deleteBerita(e.target.dataset.id));
+            btn.addEventListener('click', (e) => deleteBerita(e.target.closest('button').dataset.id));
         });
 
     } catch (error) {
-        tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-red-500">Gagal memuat data</td></tr>';
+        console.error("Error loading berita:", error);
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-red-500">Gagal memuat data: ' + error.message + '</td></tr>';
     }
 }
 
-// Edit Berita Full Implementation
+// Edit Berita
 async function editBerita(id) {
     try {
-        const snap = await getDocs(collection(db, "berita"));
-        let currentData = null;
+        const docRef = doc(db, "berita", id);
+        const docSnap = await getDocs(collection(db, "berita"));
         
-        snap.forEach((doc) => {
-            if(doc.id === id) currentData = doc.data();
+        let currentData = null;
+        docSnap.forEach((doc) => {
+            if (doc.id === id) currentData = { id: doc.id, ...doc.data() };
         });
 
-        if(!currentData) return alert("Data tidak ditemukan!");
+        if (!currentData) {
+            alert("Data tidak ditemukan!");
+            return;
+        }
 
+        // Isi form dengan data existing
         document.getElementById('post-id').value = id;
-        document.getElementById('post-title').value = currentData.title;
-        document.getElementById('post-category').value = currentData.category;
-        document.getElementById('post-status').value = currentData.status;
+        document.getElementById('post-title').value = currentData.title || '';
+        document.getElementById('post-slug').value = currentData.slug || '';  // ✅ Load slug
+        document.getElementById('post-category').value = currentData.category || 'berita';
+        document.getElementById('post-status').value = currentData.status || 'draft';
         
-        quill.root.innerHTML = currentData.content;
+        // Isi Quill editor
+        quill.root.innerHTML = currentData.content || '';
 
+        // Load gambar cover jika ada
         if (currentData.imageUrl) {
             document.getElementById('post-image-url').value = currentData.imageUrl;
             document.getElementById('image-preview').src = currentData.imageUrl;
             document.getElementById('image-preview-container').classList.remove('hidden');
         } else {
+            document.getElementById('post-image-url').value = '';
             document.getElementById('image-preview-container').classList.add('hidden');
         }
 
+        // Tampilkan form
         document.querySelectorAll('.section').forEach(el => el.classList.add('hidden'));
         document.getElementById('tambah-berita').classList.remove('hidden');
+        document.getElementById('form-title').textContent = 'Edit Berita';
 
     } catch (error) {
+        console.error("Error edit berita:", error);
         alert("Gagal memuat data edit: " + error.message);
     }
 }
 
 // Delete Berita
 async function deleteBerita(id) {
-    if(confirm('Yakin ingin menghapus berita ini?')) {
+    if (!confirm('Yakin ingin menghapus berita ini? Tindakan ini tidak bisa dibatalkan!')) {
+        return;
+    }
+    
+    try {
         await deleteDoc(doc(db, "berita", id));
+        alert("Berita berhasil dihapus!");
         loadBerita();
+    } catch (error) {
+        console.error("Error delete berita:", error);
+        alert("Gagal menghapus berita: " + error.message);
     }
 }
 
 // === PREVIEW ===
-document.getElementById('btn-preview').addEventListener('click', () => {
-    const title = document.getElementById('post-title').value;
-    const content = quill.root.innerHTML;
+document.getElementById('btn-preview')?.addEventListener('click', () => {
+    const title = document.getElementById('post-title').value || 'Tanpa Judul';
+    const content = quill.root.innerHTML || '<p>Tidak ada konten</p>';
     const img = document.getElementById('post-image-url').value;
+    const category = document.getElementById('post-category').value;
+    const slug = document.getElementById('post-slug').value || generateSlugFromTitle(title);
 
     const previewHTML = `
-        <h1 class="text-3xl font-bold mb-4">${title}</h1>
-        ${img ? `<img src="${img}" class="w-full h-64 object-cover mb-4 rounded">` : ''}
-        <div class="mt-4 prose max-w-none">${content}</div>
+        <div class="space-y-4">
+            <span class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full uppercase">${category}</span>
+            <h1 class="text-4xl font-black text-gray-900">${title}</h1>
+            <div class="text-sm text-gray-500">
+                <strong>Slug:</strong> <code class="bg-gray-100 px-2 py-1 rounded">${slug}</code>
+            </div>
+            ${img ? `<img src="${img}" class="w-full h-64 object-cover rounded-xl shadow-md">` : ''}
+            <div class="prose max-w-none mt-6">${content}</div>
+        </div>
     `;
 
     document.getElementById('preview-content').innerHTML = previewHTML;
     document.getElementById('preview-modal').classList.remove('hidden');
 });
 
-document.getElementById('close-preview').addEventListener('click', () => {
+document.getElementById('close-preview')?.addEventListener('click', () => {
     document.getElementById('preview-modal').classList.add('hidden');
 });
 
+// Tutup modal saat klik di luar
+document.getElementById('preview-modal')?.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('preview-modal')) {
+        document.getElementById('preview-modal').classList.add('hidden');
+    }
+});
+
+// === RESET FORM SAAT BUKA TAMBAH BARU ===
+document.querySelector('a[onclick*="tambah-berita"]')?.addEventListener('click', () => {
+    document.getElementById('post-id').value = '';
+    document.getElementById('post-title').value = '';
+    document.getElementById('post-slug').value = '';  // ✅ Reset slug
+    document.getElementById('post-category').value = 'berita';
+    document.getElementById('post-status').value = 'draft';
+    document.getElementById('post-image-url').value = '';
+    document.getElementById('image-preview-container').classList.add('hidden');
+    quill.root.innerHTML = '';
+    document.getElementById('form-title').textContent = 'Tambah Berita Baru';
+});
+
+// === EXPORT FUNCTIONS TO GLOBAL SCOPE ===
 window.loadBerita = loadBerita;
+window.editBerita = editBerita;
+window.deleteBerita = deleteBerita;
