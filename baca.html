@@ -77,140 +77,118 @@ title: Detail Artikel
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, doc, getDoc, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Konfigurasi Firebase Siomai Magelang
     const firebaseConfig = {
         apiKey: "AIzaSyDv9zylwxNutc2zV-0U2yXHa6ioT0usBVQ",
         authDomain: "siomaimagelang.firebaseapp.com",
         projectId: "siomaimagelang"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // === FUNGSI UTAMA: AMBIL DETAIL BERITA ===
+    // === FUNGSI PEMBANTU ===
+    function cleanSlug(rawSlug) {
+        if (!rawSlug) return '';
+        // Hapus prefix "baca/" atau "baca.html?slug=" yang mungkin terbawa
+        let slug = rawSlug.replace(/^baca\//, '');
+        slug = slug.replace(/^baca\.html\?slug=/, '');
+        slug = slug.replace(/\.html$/, '');
+        slug = slug.replace(/\/$/, '');
+        return slug;
+    }
+
+    function extractId(str) {
+        if (!str) return null;
+        const match = str.match(/([a-zA-Z0-9]{20,})$/);
+        return match ? match[1] : null;
+    }
+
+    function buildBeritaUrl(slug, id) {
+        // SELALU gunakan format /baca?slug=... (absolute dari root)
+        return `/baca?slug=${slug}-${id}`;
+    }
+
+    // === FUNGSI UTAMA ===
     async function ambilDetailBerita() {
         const loadingEl = document.getElementById('loading-detail');
         const artikelEl = document.getElementById('konten-berita');
 
         try {
             let idBerita = null;
-            let currentUrl = window.location.href;
-            let pathname = window.location.pathname;
-            let searchParams = window.location.search;
             
-            console.log('🔍 DEBUG INFO:');
-            console.log('  Full URL:', currentUrl);
-            console.log('  Pathname:', pathname);
-            console.log('  Search:', searchParams);
+            console.log('🔍 MENCARI BERITA...');
+            console.log('  URL:', window.location.href);
             
-            // === METHOD 1: Query Parameter (?id=xxx) ===
-            const urlParams = new URLSearchParams(searchParams);
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // METHOD 1: ?id=xxx
             const queryId = urlParams.get('id');
-            
             if (queryId && queryId.length >= 20) {
                 idBerita = queryId;
-                console.log('✅ Metode 1 - ID dari query parameter:', idBerita);
+                console.log('✅ ID dari ?id=', idBerita);
             }
             
-            // === METHOD 2: Slug Parameter (?slug=xxx) ===
+            // METHOD 2: ?slug=xxx (bersihkan dulu)
             if (!idBerita) {
-                const slugParam = urlParams.get('slug');
+                let slugParam = urlParams.get('slug');
                 if (slugParam) {
-                    console.log('🔍 Metode 2 - Mencoba dari slug parameter:', slugParam);
+                    slugParam = cleanSlug(slugParam);
+                    console.log('🔍 Slug dibersihkan:', slugParam);
                     
-                    // Cari ID di akhir slug
-                    const idMatch = slugParam.match(/([a-zA-Z0-9]{20,})$/);
-                    if (idMatch) {
-                        idBerita = idMatch[1];
-                        console.log('✅ Metode 2a - ID dari slug parameter:', idBerita);
+                    // Coba ekstrak ID dari slug
+                    const slugId = extractId(slugParam);
+                    if (slugId) {
+                        idBerita = slugId;
+                        console.log('✅ ID dari slug:', idBerita);
                     } else {
-                        // Cari di Firestore berdasarkan slug
+                        // Cari di Firestore
                         try {
-                            const slugQuery = query(
-                                collection(db, "berita"),
-                                where("slug", "==", slugParam),
-                                limit(1)
-                            );
-                            const slugSnapshot = await getDocs(slugQuery);
-                            if (!slugSnapshot.empty) {
-                                idBerita = slugSnapshot.docs[0].id;
-                                console.log('✅ Metode 2b - ID dari Firestore by slug:', idBerita);
+                            const q = query(collection(db, "berita"), where("slug", "==", slugParam), limit(1));
+                            const snap = await getDocs(q);
+                            if (!snap.empty) {
+                                idBerita = snap.docs[0].id;
+                                console.log('✅ ID dari Firestore by slug:', idBerita);
                             }
-                        } catch (err) {
-                            console.error('❌ Error mencari slug:', err);
+                        } catch (e) {
+                            console.error('❌ Error:', e);
                         }
                     }
                 }
             }
             
-            // === METHOD 3: Parse dari URL Path ===
+            // METHOD 3: Parse dari pathname
             if (!idBerita) {
-                let cleanPath = pathname;
-                
-                // Bersihkan path
-                cleanPath = cleanPath.replace(/^\/+|\/+$/g, ''); // Hapus slash
-                cleanPath = cleanPath.replace(/\.html$/, '');     // Hapus .html
-                
-                console.log('🔍 Metode 3 - Path bersih:', cleanPath);
-                
-                // Jika path mengandung "baca/"
-                if (cleanPath.startsWith('baca/')) {
-                    let slugPart = cleanPath.substring(5); // Ambil setelah "baca/"
-                    
-                    if (slugPart && slugPart !== 'baca') {
-                        console.log('  Slug part:', slugPart);
-                        
-                        // Cari ID Firebase di akhir
-                        const idMatch = slugPart.match(/([a-zA-Z0-9]{20,})$/);
-                        if (idMatch) {
-                            idBerita = idMatch[1];
-                            console.log('✅ Metode 3a - ID dari path:', idBerita);
+                let path = window.location.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+                if (path.startsWith('baca/')) {
+                    let slugPart = cleanSlug(path.substring(5));
+                    if (slugPart) {
+                        const pathId = extractId(slugPart);
+                        if (pathId) {
+                            idBerita = pathId;
+                            console.log('✅ ID dari path:', idBerita);
                         } else {
-                            // Cari berdasarkan slug di Firestore
                             try {
-                                const slugQuery = query(
-                                    collection(db, "berita"),
-                                    where("slug", "==", slugPart),
-                                    limit(1)
-                                );
-                                const slugSnapshot = await getDocs(slugQuery);
-                                if (!slugSnapshot.empty) {
-                                    idBerita = slugSnapshot.docs[0].id;
-                                    console.log('✅ Metode 3b - ID dari Firestore by path slug:', idBerita);
+                                const q = query(collection(db, "berita"), where("slug", "==", slugPart), limit(1));
+                                const snap = await getDocs(q);
+                                if (!snap.empty) {
+                                    idBerita = snap.docs[0].id;
+                                    console.log('✅ ID dari Firestore by path slug:', idBerita);
                                 }
-                            } catch (err) {
-                                console.error('❌ Error mencari slug di path:', err);
+                            } catch (e) {
+                                console.error('❌ Error:', e);
                             }
                         }
                     }
-                }
-            }
-            
-            // === METHOD 4: Hash Fragment (#) ===
-            if (!idBerita && window.location.hash) {
-                const hash = window.location.hash.substring(1);
-                const idMatch = hash.match(/([a-zA-Z0-9]{20,})$/);
-                if (idMatch) {
-                    idBerita = idMatch[1];
-                    console.log('✅ Metode 4 - ID dari hash:', idBerita);
                 }
             }
 
-            // === JIKA TIDAK DITEMUKAN ===
+            // JIKA TIDAK DITEMUKAN
             if (!idBerita) {
-                console.error('❌ Semua metode gagal menemukan ID');
                 loadingEl.innerHTML = `
                     <div class="text-center">
                         <i class="fas fa-exclamation-triangle text-5xl text-yellow-500 mb-4"></i>
                         <p class="text-red-500 font-bold text-lg">Artikel Tidak Ditemukan!</p>
-                        <p class="text-gray-500 mt-2">URL yang Anda masukkan tidak valid.</p>
-                        <div class="mt-4 p-4 bg-gray-100 rounded-lg text-left text-xs">
-                            <p class="font-semibold mb-1">Debug Info:</p>
-                            <p>URL: ${currentUrl}</p>
-                            <p>Path: ${pathname}</p>
-                            <p>Query: ${searchParams || '(kosong)'}</p>
-                        </div>
+                        <p class="text-gray-500 mt-2">URL tidak valid atau artikel sudah dihapus.</p>
                         <a href="{{ site.baseurl }}/" class="inline-block mt-4 bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700">
                             ← Kembali ke Beranda
                         </a>
@@ -219,95 +197,91 @@ title: Detail Artikel
                 return;
             }
 
-            // === AMBIL DATA DARI FIRESTORE ===
-            console.log('📥 Mengambil data dari Firestore, ID:', idBerita);
+            // AMBIL DATA
+            console.log('📥 Fetching document:', idBerita);
             const docRef = doc(db, "berita", idBerita);
             const docSnap = await getDoc(docRef);
 
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                console.log('✅ Data berita ditemukan:', data.title);
-
-                // Update URL browser ke format cantik
-                if (data.slug) {
-                    const cleanUrl = `/baca?slug=${data.slug}-${idBerita}`;
-                    if (window.location.pathname !== cleanUrl) {
-                        window.history.replaceState({}, data.title, cleanUrl);
-                        console.log('🔄 URL diupdate ke:', cleanUrl);
-                    }
-                }
-
-                // Update judul tab browser
-                document.title = `${data.title || 'Berita'} - SIOMAI Magelang`;
-
-                // Isi konten artikel
-                document.getElementById('detail-judul').textContent = data.title || 'Tanpa Judul';
-                document.getElementById('detail-kategori').textContent = data.category || 'Berita';
-                
-                // Format tanggal
-                if (data.createdAt) {
-                    const date = data.createdAt.toDate();
-                    document.getElementById('detail-tanggal').innerHTML = `
-                        <i class="far fa-calendar-alt"></i> 
-                        Diterbitkan: ${date.toLocaleDateString('id-ID', { 
-                            weekday: 'long',
-                            day: '2-digit', 
-                            month: 'long', 
-                            year: 'numeric' 
-                        })}
-                    `;
-                }
-
-                // Tampilkan gambar cover
-                if (data.imageUrl) {
-                    document.getElementById('detail-gambar').src = data.imageUrl;
-                    document.getElementById('detail-gambar').alt = data.title;
-                    document.getElementById('detail-gambar-container').classList.remove('hidden');
-                }
-
-                // Isi konten berita
-                document.getElementById('detail-isi').innerHTML = data.content || '<p class="text-gray-400">Tidak ada konten.</p>';
-
-                // Setup share buttons
-                setupShareButtons(data.title, window.location.href);
-
-                // Tampilkan artikel
-                loadingEl.classList.add('hidden');
-                artikelEl.classList.remove('hidden');
-
-                // Load artikel terkait
-                loadArtikelTerkait(data.category, idBerita);
-
-            } else {
-                console.error('❌ Dokumen tidak ditemukan di Firestore');
+            if (!docSnap.exists()) {
                 loadingEl.innerHTML = `
                     <div class="text-center">
                         <i class="fas fa-file-alt text-5xl text-gray-300 mb-4"></i>
                         <p class="text-red-500 font-bold text-lg">Berita Tidak Ditemukan!</p>
-                        <p class="text-gray-500 mt-2">Artikel dengan ID <code class="bg-gray-100 px-2 py-1 rounded">${idBerita}</code> tidak ada.</p>
+                        <p class="text-gray-500 mt-2">ID: <code>${idBerita}</code></p>
                         <a href="{{ site.baseurl }}/" class="inline-block mt-4 bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700">
                             ← Kembali ke Beranda
                         </a>
                     </div>
                 `;
+                return;
             }
 
+            const data = docSnap.data();
+            console.log('✅ Berita ditemukan:', data.title);
+
+            // Update URL browser ke format bersih
+            const cleanSlugValue = data.slug || 'berita';
+            const cleanUrl = buildBeritaUrl(cleanSlugValue, idBerita);
+            
+            if (window.location.pathname + window.location.search !== cleanUrl) {
+                window.history.replaceState({}, data.title, cleanUrl);
+                console.log('🔄 URL updated to:', cleanUrl);
+            }
+
+            // Update judul tab
+            document.title = `${data.title || 'Berita'} - SIOMAI Magelang`;
+
+            // Isi konten
+            document.getElementById('detail-judul').textContent = data.title || 'Tanpa Judul';
+            document.getElementById('detail-kategori').textContent = data.category || 'Berita';
+            
+            if (data.createdAt) {
+                const date = data.createdAt.toDate();
+                document.getElementById('detail-tanggal').innerHTML = `
+                    <i class="far fa-calendar-alt"></i> 
+                    Diterbitkan: ${date.toLocaleDateString('id-ID', { 
+                        weekday: 'long',
+                        day: '2-digit', 
+                        month: 'long', 
+                        year: 'numeric' 
+                    })}
+                `;
+            }
+
+            if (data.imageUrl) {
+                document.getElementById('detail-gambar').src = data.imageUrl;
+                document.getElementById('detail-gambar').alt = data.title || '';
+                document.getElementById('detail-gambar-container').classList.remove('hidden');
+            }
+
+            document.getElementById('detail-isi').innerHTML = data.content || '<p class="text-gray-400">Tidak ada konten.</p>';
+
+            // Setup share buttons dengan URL bersih
+            setupShareButtons(data.title, window.location.href);
+
+            // Tampilkan artikel
+            loadingEl.classList.add('hidden');
+            artikelEl.classList.remove('hidden');
+
+            // Load artikel terkait
+            loadArtikelTerkait(data.category, idBerita);
+
         } catch (error) {
-            console.error("❌ Error sistem:", error);
+            console.error("❌ Error:", error);
             loadingEl.innerHTML = `
                 <div class="text-center">
                     <i class="fas fa-exclamation-circle text-5xl text-red-500 mb-4"></i>
-                    <p class="text-red-500 font-bold">Terjadi Kesalahan Sistem!</p>
+                    <p class="text-red-500 font-bold">Terjadi Kesalahan!</p>
                     <p class="text-gray-500 mt-2">${error.message}</p>
                     <button onclick="location.reload()" class="inline-block mt-4 bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700">
-                        🔄 Muat Ulang Halaman
+                        🔄 Muat Ulang
                     </button>
                 </div>
             `;
         }
     }
 
-    // === FUNGSI: LOAD ARTIKEL TERKAIT ===
+    // === LOAD ARTIKEL TERKAIT ===
     async function loadArtikelTerkait(kategori, currentId) {
         const grid = document.getElementById('artikel-terkait');
         
@@ -325,31 +299,26 @@ title: Detail Artikel
             let count = 0;
             
             for (const doc of snapshot.docs) {
-                // Skip artikel yang sedang dibaca
                 if (doc.id === currentId) continue;
                 if (count >= 3) break;
                 
                 const data = doc.data();
                 const id = doc.id;
                 
-                // Buat ringkasan
+                // Ringkasan
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = data.content || '';
-                const textContent = tempDiv.textContent || tempDiv.innerText || '';
+                const textContent = tempDiv.textContent || '';
                 const ringkasan = textContent.split(/\s+/).slice(0, 12).join(" ") + "...";
                 
-                // Buat URL friendly
+                // ✅ URL FIX: Absolute dari root
                 const urlSlug = data.slug || 'berita';
-                const beritaUrl = `baca?slug=${urlSlug}-${id}`;
+                const beritaUrl = buildBeritaUrl(urlSlug, id);
                 
-                // Format tanggal
                 let tanggal = '';
                 if (data.createdAt) {
-                    const date = data.createdAt.toDate();
-                    tanggal = date.toLocaleDateString('id-ID', { 
-                        day: '2-digit', 
-                        month: 'long', 
-                        year: 'numeric' 
+                    tanggal = data.createdAt.toDate().toLocaleDateString('id-ID', { 
+                        day: '2-digit', month: 'long', year: 'numeric' 
                     });
                 }
                 
@@ -357,9 +326,7 @@ title: Detail Artikel
                 card.className = 'bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition';
                 card.innerHTML = `
                     <img src="${data.imageUrl || 'https://i.ibb.co/pBR7jwRB/damai1-c9b079aa44.jpg'}" 
-                         class="w-full h-40 object-cover" 
-                         alt="${data.title || 'Gambar Artikel'}"
-                         loading="lazy">
+                         class="w-full h-40 object-cover" alt="${data.title || ''}" loading="lazy">
                     <div class="p-4">
                         <span class="text-xs text-red-600 font-semibold uppercase">${data.category || 'Berita'}</span>
                         <h3 class="font-bold mt-1 mb-2 line-clamp-2">
@@ -385,78 +352,51 @@ title: Detail Artikel
         }
     }
 
-    // === FUNGSI: SETUP SHARE BUTTONS ===
+    // === SETUP SHARE BUTTONS ===
     function setupShareButtons(title, url) {
-        const encodedUrl = encodeURIComponent(url);
+        // Bersihkan URL untuk share
+        const cleanUrl = url.replace(/baca\.html\?slug=baca\//, 'baca?slug=');
+        const encodedUrl = encodeURIComponent(cleanUrl);
         const encodedTitle = encodeURIComponent(title);
         
-        // Facebook
         const fbBtn = document.getElementById('share-facebook');
         if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
         
-        // Twitter
         const twBtn = document.getElementById('share-twitter');
         if (twBtn) twBtn.href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
         
-        // WhatsApp
         const waBtn = document.getElementById('share-whatsapp');
         if (waBtn) waBtn.href = `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`;
         
-        // Copy Link
         const copyBtn = document.getElementById('copy-link');
         if (copyBtn) {
             copyBtn.addEventListener('click', async () => {
                 try {
-                    await navigator.clipboard.writeText(url);
-                    showCopySuccess(copyBtn);
+                    await navigator.clipboard.writeText(cleanUrl);
+                    copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Tersalin!';
+                    copyBtn.classList.add('bg-green-500');
+                    copyBtn.disabled = true;
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-link mr-2"></i> Salin Link';
+                        copyBtn.classList.remove('bg-green-500');
+                        copyBtn.disabled = false;
+                    }, 2000);
                 } catch {
-                    // Fallback untuk browser lama
-                    const textArea = document.createElement('textarea');
-                    textArea.value = url;
-                    textArea.style.position = 'fixed';
-                    textArea.style.left = '-9999px';
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    try {
-                        document.execCommand('copy');
-                        showCopySuccess(copyBtn);
-                    } catch {
-                        alert('Gagal menyalin link. Silakan copy manual.');
-                    }
-                    document.body.removeChild(textArea);
+                    alert('Link: ' + cleanUrl);
                 }
             });
         }
     }
-    
-    function showCopySuccess(button) {
-        const originalHTML = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check mr-2"></i> Tersalin!';
-        button.classList.add('bg-green-500');
-        button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
-        button.disabled = true;
-        
-        setTimeout(() => {
-            button.innerHTML = originalHTML;
-            button.classList.remove('bg-green-500');
-            button.classList.add('bg-gray-500', 'hover:bg-gray-600');
-            button.disabled = false;
-        }, 2000);
-    }
 
-    // Jalankan saat halaman siap
+    // === START ===
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', ambilDetailBerita);
     } else {
         ambilDetailBerita();
     }
-    
-    // Export untuk debugging
-    window.ambilDetailBerita = ambilDetailBerita;
 </script>
 
 <style>
-    /* Mengatur style tulisan HTML di dalam artikel (Quill editor output) */
     .prose {
         font-size: 1.125rem;
         line-height: 1.8;
@@ -469,50 +409,16 @@ title: Detail Artikel
         display: block;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
-    .prose p {
-        margin-bottom: 1.5rem;
-        color: #374151;
-    }
-    .prose h2 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        color: #1f2937;
-    }
-    .prose h3 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-top: 1.5rem;
-        margin-bottom: 0.75rem;
-        color: #374151;
-    }
-    .prose a {
-        color: #dc2626;
-        text-decoration: underline;
-    }
-    .prose ul, .prose ol {
-        margin: 1rem 0;
-        padding-left: 1.5rem;
-    }
-    .prose blockquote {
-        border-left: 4px solid #dc2626;
-        padding-left: 1rem;
-        margin: 1.5rem 0;
-        color: #6b7280;
-        font-style: italic;
-    }
-    .ql-align-justify {
-        text-align: justify;
-    }
-    .ql-align-center {
-        text-align: center;
-    }
-    .ql-align-right {
-        text-align: right;
-    }
+    .prose p { margin-bottom: 1.5rem; color: #374151; }
+    .prose h2 { font-size: 1.75rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: #1f2937; }
+    .prose h3 { font-size: 1.5rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #374151; }
+    .prose a { color: #dc2626; text-decoration: underline; }
+    .prose ul, .prose ol { margin: 1rem 0; padding-left: 1.5rem; }
+    .prose blockquote { border-left: 4px solid #dc2626; padding-left: 1rem; margin: 1.5rem 0; color: #6b7280; font-style: italic; }
+    .ql-align-justify { text-align: justify; }
+    .ql-align-center { text-align: center; }
+    .ql-align-right { text-align: right; }
     
-    /* Line clamp untuk judul artikel terkait */
     .line-clamp-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -520,7 +426,6 @@ title: Detail Artikel
         overflow: hidden;
     }
     
-    /* Animasi loading */
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
@@ -531,5 +436,4 @@ title: Detail Artikel
     }
 </style>
 
-<!-- Font Awesome untuk icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
