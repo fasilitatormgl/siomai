@@ -17,7 +17,7 @@
     "redirects": [
       {
         "source": "/baca/:slug*",
-        "destination": "/baca.html?slug=:slug*",
+        "destination": "/baca?slug=:slug*",
         "type": 301
       }
     ]
