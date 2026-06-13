@@ -34,7 +34,7 @@ title: Detail Artikel
         </div>
         
         <div id="detail-gambar-container" class="mb-8 hidden">
-            <img id="detail-gambar" src="" class="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-md">
+            <img id="detail-gambar" src="" class="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-md" alt="Gambar Artikel">
         </div>
 
         <div id="detail-isi" class="prose prose-red max-w-none text-gray-700 leading-relaxed space-y-4">
@@ -44,14 +44,14 @@ title: Detail Artikel
         <!-- Share buttons -->
         <div class="mt-10 pt-6 border-t">
             <h3 class="text-lg font-semibold mb-3">Bagikan Artikel:</h3>
-            <div class="flex gap-3">
-                <a id="share-facebook" href="#" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+            <div class="flex flex-wrap gap-3">
+                <a id="share-facebook" href="#" target="_blank" rel="noopener" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                     <i class="fab fa-facebook-f mr-2"></i> Facebook
                 </a>
-                <a id="share-twitter" href="#" target="_blank" class="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600 transition">
+                <a id="share-twitter" href="#" target="_blank" rel="noopener" class="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600 transition">
                     <i class="fab fa-twitter mr-2"></i> Twitter
                 </a>
-                <a id="share-whatsapp" href="#" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                <a id="share-whatsapp" href="#" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
                     <i class="fab fa-whatsapp mr-2"></i> WhatsApp
                 </a>
                 <button id="copy-link" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
@@ -96,44 +96,62 @@ title: Detail Artikel
         try {
             let idBerita = null;
             
-            // 🔍 METHOD 1: Parse dari URL path (format: /baca/slug-judul-idFirestore)
-            const pathSegments = window.location.pathname.split('/');
-            const lastSegment = pathSegments[pathSegments.length - 1];
+            // 🔍 METHOD 1: Coba dari query parameter (?id=xxx)
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryId = urlParams.get('id');
             
-            if (lastSegment && lastSegment !== 'baca.html' && lastSegment !== 'baca') {
-                // Hapus ekstensi .html jika ada
-                const cleanSegment = lastSegment.replace('.html', '');
-                
-                // Cek apakah segment berisi ID Firebase (20 karakter alfanumerik)
-                const firebaseIdPattern = /[a-zA-Z0-9]{20,}/;
-                const match = cleanSegment.match(firebaseIdPattern);
-                
-                if (match) {
-                    // Jika ID ada di akhir URL
-                    idBerita = match[0];
-                } else {
-                    // Mungkin format lama: /baca/slug-judul
-                    // Coba cari di Firestore berdasarkan slug
-                    const slugQuery = query(
-                        collection(db, "berita"),
-                        where("slug", "==", cleanSegment),
-                        limit(1)
-                    );
-                    const slugSnapshot = await getDocs(slugQuery);
-                    if (!slugSnapshot.empty) {
-                        idBerita = slugSnapshot.docs[0].id;
-                    }
-                }
+            if (queryId && queryId.length >= 20) {
+                idBerita = queryId;
+                console.log('✅ ID dari query parameter:', idBerita);
             }
             
-            // 🔍 METHOD 2: Fallback ke query parameter (?id=xxx)
+            // 🔍 METHOD 2: Parse dari URL path
             if (!idBerita) {
-                const urlParams = new URLSearchParams(window.location.search);
-                idBerita = urlParams.get('id');
+                let path = window.location.pathname;
+                console.log('📂 Path URL:', path);
+                
+                // Bersihkan path
+                path = path.replace(/^\/|\/$/g, ''); // Hapus slash di awal/akhir
+                path = path.replace('baca/', '');     // Hapus prefix "baca/"
+                path = path.replace('.html', '');      // Hapus ekstensi .html
+                
+                console.log('🧹 Path setelah dibersihkan:', path);
+                
+                if (path && path !== 'baca') {
+                    // Cari ID Firebase di akhir path (20 karakter alfanumerik)
+                    const idMatch = path.match(/([a-zA-Z0-9]{20,})$/);
+                    
+                    if (idMatch) {
+                        // Ada ID di akhir URL
+                        idBerita = idMatch[1];
+                        console.log('✅ ID dari path URL:', idBerita);
+                    } else {
+                        // Tidak ada ID, coba cari berdasarkan slug
+                        console.log('🔍 Mencari berdasarkan slug:', path);
+                        
+                        try {
+                            const slugQuery = query(
+                                collection(db, "berita"),
+                                where("slug", "==", path),
+                                where("status", "==", "publish"),
+                                limit(1)
+                            );
+                            const slugSnapshot = await getDocs(slugQuery);
+                            
+                            if (!slugSnapshot.empty) {
+                                idBerita = slugSnapshot.docs[0].id;
+                                console.log('✅ ID dari slug:', idBerita);
+                            }
+                        } catch (slugError) {
+                            console.error('❌ Error mencari slug:', slugError);
+                        }
+                    }
+                }
             }
 
             // Jika tetap tidak ditemukan
             if (!idBerita) {
+                console.error('❌ ID Berita tidak ditemukan');
                 loadingEl.innerHTML = `
                     <div class="text-center">
                         <i class="fas fa-exclamation-triangle text-5xl text-yellow-500 mb-4"></i>
@@ -148,11 +166,13 @@ title: Detail Artikel
             }
 
             // 📥 Tarik data dari Firestore berdasarkan ID
+            console.log('📥 Mengambil data dari Firestore, ID:', idBerita);
             const docRef = doc(db, "berita", idBerita);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
                 const data = docSnap.data();
+                console.log('✅ Data berita ditemukan:', data.title);
 
                 // Update judul halaman (browser tab)
                 document.title = `${data.title || 'Berita'} - SIOMAI Magelang`;
@@ -196,7 +216,7 @@ title: Detail Artikel
                 loadArtikelTerkait(data.category, idBerita);
 
             } else {
-                // Artikel tidak ditemukan
+                console.error('❌ Dokumen tidak ditemukan');
                 loadingEl.innerHTML = `
                     <div class="text-center">
                         <i class="fas fa-file-alt text-5xl text-gray-300 mb-4"></i>
@@ -319,6 +339,20 @@ title: Detail Artikel
                         copyBtn.innerHTML = '<i class="fas fa-link mr-2"></i> Salin Link';
                         copyBtn.classList.remove('bg-green-500');
                     }, 2000);
+                }).catch(() => {
+                    // Fallback untuk browser yang tidak support clipboard API
+                    const textArea = document.createElement('textarea');
+                    textArea.value = url;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Tersalin!';
+                    copyBtn.classList.add('bg-green-500');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-link mr-2"></i> Salin Link';
+                        copyBtn.classList.remove('bg-green-500');
+                    }, 2000);
                 });
             });
         }
@@ -326,6 +360,9 @@ title: Detail Artikel
 
     // Jalankan fungsi saat halaman dibuka
     window.addEventListener('DOMContentLoaded', ambilDetailBerita);
+    
+    // Export untuk debugging
+    window.ambilDetailBerita = ambilDetailBerita;
 </script>
 
 <style>
