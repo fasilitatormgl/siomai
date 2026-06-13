@@ -17,7 +17,7 @@ const db = getFirestore(app);
 
 // === CONFIGURATION IMGBB (GRATIS) ===
 // Masukkan API KEY yang Anda dapatkan dari api.imgbb.com di bawah ini:
-const IMGBB_API_KEY = "PASTE_API_KEY_IMGBB_MU_DI_SINI"; 
+const IMGBB_API_KEY = "751653229ba1e85aa3bfc49f03e2d5cb"; 
 
 // Fungsi Pembantu untuk Upload ke ImgBB
 async function uploadToImgBB(file) {
