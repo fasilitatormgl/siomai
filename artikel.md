@@ -77,7 +77,7 @@ title: Semua Artikel
                 }
 
                 // Link untuk membaca artikel penuh (mengarahkan ke halaman detail bawa id berita)
-                const urlBaca = `baca.html?id=${doc.id}`;
+                const urlBaca = `baca?id=${doc.id}`;
 
                 // Susun struktur tampilan HTML (Sama persis dengan desain asli kamu)
                 const kartuArtikel = `
