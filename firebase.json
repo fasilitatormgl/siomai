@@ -9,6 +9,10 @@
     ],
     "rewrites": [
       {
+        "source": "/baca/**",
+        "destination": "/baca.html"
+      },
+      {
         "source": "/admin/**",
         "destination": "/admin/index.html"
       }
