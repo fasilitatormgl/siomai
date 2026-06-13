@@ -2,6 +2,7 @@
   "hosting": {
     "public": "_site",
     "cleanUrls": true,
+    "trailingSlash": false,
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -9,8 +10,16 @@
     ],
     "rewrites": [
       {
+        "source": "/baca",
+        "destination": "/baca.html"
+      },
+      {
         "source": "/baca/**",
         "destination": "/baca.html"
+      },
+      {
+        "source": "/admin",
+        "destination": "/admin/index.html"
       },
       {
         "source": "/admin/**",
