@@ -230,7 +230,7 @@ title: Detail Artikel
 
                 // Update URL browser ke format cantik
                 if (data.slug) {
-                    const cleanUrl = `/baca/${data.slug}-${idBerita}`;
+                    const cleanUrl = `/baca?slug=${data.slug}-${idBerita}`;
                     if (window.location.pathname !== cleanUrl) {
                         window.history.replaceState({}, data.title, cleanUrl);
                         console.log('🔄 URL diupdate ke:', cleanUrl);
