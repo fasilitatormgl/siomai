@@ -3,8 +3,8 @@ layout: default
 title: Detail Artikel
 ---
 <div class="max-w-4xl mx-auto my-10 px-4">
-    <a href="index.html" class="text-red-600 hover:text-red-800 font-semibold inline-flex items-center mb-6">
-        <i class="fas fa-arrow-left mr-2"></i> ← Kembali ke Semua Artikel
+    <a href="{{ site.baseurl }}/" class="text-red-600 hover:text-red-800 font-semibold inline-flex items-center mb-6">
+        <i class="fas fa-arrow-left mr-2"></i> ← Kembali ke Beranda
     </a>
 
     <div id="loading-detail" class="text-center py-20 text-gray-500">
@@ -13,24 +13,69 @@ title: Detail Artikel
     </div>
 
     <article id="konten-berita" class="hidden bg-white rounded-3xl shadow-xl p-6 md:p-10 overflow-hidden">
-        <span id="detail-kategori" class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide"></span>
+        <!-- Breadcrumb -->
+        <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+            <a href="{{ site.baseurl }}/" class="hover:text-red-600">Beranda</a>
+            <span>/</span>
+            <a href="{{ site.baseurl }}/artikel" class="hover:text-red-600">Artikel</a>
+            <span>/</span>
+            <span id="detail-kategori" class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide"></span>
+        </div>
         
         <h1 id="detail-judul" class="text-3xl md:text-5xl font-black text-gray-900 mt-4 mb-3 leading-tight"></h1>
         
-        <p id="detail-tanggal" class="text-gray-500 text-sm mb-6"></p>
+        <div class="flex items-center gap-4 text-gray-500 text-sm mb-6 pb-6 border-b">
+            <span id="detail-tanggal" class="flex items-center gap-1">
+                <i class="far fa-calendar-alt"></i> 
+            </span>
+            <span class="flex items-center gap-1">
+                <i class="far fa-user"></i> Admin SIOMAI
+            </span>
+        </div>
         
         <div id="detail-gambar-container" class="mb-8 hidden">
-            <img id="detail-gambar" src="" class="w-full h-auto max-h-[450px] object-cover rounded-2xl shadow-md">
+            <img id="detail-gambar" src="" class="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-md">
         </div>
 
         <div id="detail-isi" class="prose prose-red max-w-none text-gray-700 leading-relaxed space-y-4">
+            <!-- Konten akan diisi oleh JavaScript -->
+        </div>
+
+        <!-- Share buttons -->
+        <div class="mt-10 pt-6 border-t">
+            <h3 class="text-lg font-semibold mb-3">Bagikan Artikel:</h3>
+            <div class="flex gap-3">
+                <a id="share-facebook" href="#" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    <i class="fab fa-facebook-f mr-2"></i> Facebook
+                </a>
+                <a id="share-twitter" href="#" target="_blank" class="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600 transition">
+                    <i class="fab fa-twitter mr-2"></i> Twitter
+                </a>
+                <a id="share-whatsapp" href="#" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                    <i class="fab fa-whatsapp mr-2"></i> WhatsApp
+                </a>
+                <button id="copy-link" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+                    <i class="fas fa-link mr-2"></i> Salin Link
+                </button>
             </div>
+        </div>
     </article>
+
+    <!-- Artikel Terkait -->
+    <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6">📰 Artikel Lainnya</h2>
+        <div id="artikel-terkait" class="grid md:grid-cols-3 gap-6">
+            <div class="col-span-3 text-center py-10 text-gray-500">
+                <i class="fas fa-spinner fa-spin text-3xl mb-2 text-red-600"></i>
+                <p>Memuat artikel terkait...</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     // Konfigurasi Firebase Siomai Magelang
     const firebaseConfig = {
@@ -43,57 +88,239 @@ title: Detail Artikel
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // === FUNGSI UTAMA: AMBIL DETAIL BERITA ===
     async function ambilDetailBerita() {
         const loadingEl = document.getElementById('loading-detail');
         const artikelEl = document.getElementById('konten-berita');
 
         try {
-            // 1. Ambil parameter ID dari URL (?id=xxxxxxxxx)
-            const urlParams = new URLSearchParams(window.location.search);
-            const idBerita = urlParams.get('id');
-
+            let idBerita = null;
+            
+            // 🔍 METHOD 1: Parse dari URL path (format: /baca/slug-judul-idFirestore)
+            const pathSegments = window.location.pathname.split('/');
+            const lastSegment = pathSegments[pathSegments.length - 1];
+            
+            if (lastSegment && lastSegment !== 'baca.html' && lastSegment !== 'baca') {
+                // Hapus ekstensi .html jika ada
+                const cleanSegment = lastSegment.replace('.html', '');
+                
+                // Cek apakah segment berisi ID Firebase (20 karakter alfanumerik)
+                const firebaseIdPattern = /[a-zA-Z0-9]{20,}/;
+                const match = cleanSegment.match(firebaseIdPattern);
+                
+                if (match) {
+                    // Jika ID ada di akhir URL
+                    idBerita = match[0];
+                } else {
+                    // Mungkin format lama: /baca/slug-judul
+                    // Coba cari di Firestore berdasarkan slug
+                    const slugQuery = query(
+                        collection(db, "berita"),
+                        where("slug", "==", cleanSegment),
+                        limit(1)
+                    );
+                    const slugSnapshot = await getDocs(slugQuery);
+                    if (!slugSnapshot.empty) {
+                        idBerita = slugSnapshot.docs[0].id;
+                    }
+                }
+            }
+            
+            // 🔍 METHOD 2: Fallback ke query parameter (?id=xxx)
             if (!idBerita) {
-                loadingEl.innerHTML = `<p class="text-red-500 font-bold">ID Berita tidak ditemukan di URL!</p>`;
+                const urlParams = new URLSearchParams(window.location.search);
+                idBerita = urlParams.get('id');
+            }
+
+            // Jika tetap tidak ditemukan
+            if (!idBerita) {
+                loadingEl.innerHTML = `
+                    <div class="text-center">
+                        <i class="fas fa-exclamation-triangle text-5xl text-yellow-500 mb-4"></i>
+                        <p class="text-red-500 font-bold text-lg">ID Berita tidak ditemukan di URL!</p>
+                        <p class="text-gray-500 mt-2">Silakan kembali ke beranda dan pilih artikel yang valid.</p>
+                        <a href="{{ site.baseurl }}/" class="inline-block mt-4 bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700">
+                            ← Kembali ke Beranda
+                        </a>
+                    </div>
+                `;
                 return;
             }
 
-            // 2. Tarik data dari Firestore berdasarkan ID tersebut
+            // 📥 Tarik data dari Firestore berdasarkan ID
             const docRef = doc(db, "berita", idBerita);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
                 const data = docSnap.data();
 
-                // 3. Masukkan data Firestore ke elemen HTML
-                document.getElementById('detail-judul').textContent = data.title;
-                document.getElementById('detail-kategori').textContent = data.category || "Berita";
+                // Update judul halaman (browser tab)
+                document.title = `${data.title || 'Berita'} - SIOMAI Magelang`;
+
+                // Isi konten artikel
+                document.getElementById('detail-judul').textContent = data.title || 'Tanpa Judul';
+                document.getElementById('detail-kategori').textContent = data.category || 'Berita';
                 
-                // Format tanggal agar manusiawi
+                // Format tanggal
                 if (data.createdAt) {
                     const date = data.createdAt.toDate();
-                    document.getElementById('detail-tanggal').textContent = "Diterbitkan pada: " + date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+                    document.getElementById('detail-tanggal').innerHTML = `
+                        <i class="far fa-calendar-alt"></i> 
+                        Diterbitkan: ${date.toLocaleDateString('id-ID', { 
+                            weekday: 'long',
+                            day: '2-digit', 
+                            month: 'long', 
+                            year: 'numeric' 
+                        })}
+                    `;
                 }
 
-                // Tampilkan gambar cover jika ada
+                // Tampilkan gambar cover
                 if (data.imageUrl) {
                     document.getElementById('detail-gambar').src = data.imageUrl;
+                    document.getElementById('detail-gambar').alt = data.title;
                     document.getElementById('detail-gambar-container').classList.remove('hidden');
                 }
 
-                // Masukkan isi tulisan berita (Mendukung tag HTML dari Quill editor)
-                document.getElementById('detail-isi').innerHTML = data.content;
+                // Isi konten berita
+                document.getElementById('detail-isi').innerHTML = data.content || '<p class="text-gray-400">Tidak ada konten.</p>';
 
-                // 4. Sembunyikan loading dan tampilkan artikelnya
+                // Setup share buttons
+                setupShareButtons(data.title, window.location.href);
+
+                // Sembunyikan loading, tampilkan artikel
                 loadingEl.classList.add('hidden');
                 artikelEl.classList.remove('hidden');
 
+                // Load artikel terkait
+                loadArtikelTerkait(data.category, idBerita);
+
             } else {
-                loadingEl.innerHTML = `<p class="text-red-500 font-bold">Maaf, berita ini tidak ditemukan atau sudah dihapus.</p>`;
+                // Artikel tidak ditemukan
+                loadingEl.innerHTML = `
+                    <div class="text-center">
+                        <i class="fas fa-file-alt text-5xl text-gray-300 mb-4"></i>
+                        <p class="text-red-500 font-bold text-lg">Maaf, berita tidak ditemukan!</p>
+                        <p class="text-gray-500 mt-2">Artikel mungkin sudah dihapus atau dipindahkan.</p>
+                        <a href="{{ site.baseurl }}/" class="inline-block mt-4 bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700">
+                            ← Kembali ke Beranda
+                        </a>
+                    </div>
+                `;
             }
 
         } catch (error) {
-            console.error("Gagal memuat berita:", error);
-            loadingEl.innerHTML = `<p class="text-red-500 font-bold">Terjadi kesalahan sistem saat memuat berita.</p>`;
+            console.error("❌ Gagal memuat berita:", error);
+            loadingEl.innerHTML = `
+                <div class="text-center">
+                    <i class="fas fa-exclamation-circle text-5xl text-red-500 mb-4"></i>
+                    <p class="text-red-500 font-bold">Terjadi kesalahan sistem!</p>
+                    <p class="text-gray-500 mt-2">${error.message}</p>
+                    <button onclick="location.reload()" class="inline-block mt-4 bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700">
+                        🔄 Muat Ulang
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    // === FUNGSI: LOAD ARTIKEL TERKAIT ===
+    async function loadArtikelTerkait(kategori, currentId) {
+        const grid = document.getElementById('artikel-terkait');
+        
+        try {
+            const q = query(
+                collection(db, "berita"),
+                where("status", "==", "publish"),
+                orderBy("createdAt", "desc"),
+                limit(4)
+            );
+            
+            const snapshot = await getDocs(q);
+            grid.innerHTML = '';
+            
+            let count = 0;
+            
+            snapshot.forEach((doc) => {
+                // Skip artikel yang sedang dibaca
+                if (doc.id === currentId) return;
+                if (count >= 3) return; // Maksimal 3 artikel terkait
+                
+                const data = doc.data();
+                const id = doc.id;
+                
+                // Buat ringkasan
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = data.content || '';
+                const ringkasan = (tempDiv.textContent || "").split(" ").slice(0, 12).join(" ") + "...";
+                
+                // Buat URL friendly
+                const urlSlug = data.slug || 'berita';
+                const beritaUrl = `baca/${urlSlug}-${id}`;
+                
+                grid.innerHTML += `
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
+                        <img src="${data.imageUrl || 'https://i.ibb.co/pBR7jwRB/damai1-c9b079aa44.jpg'}" 
+                             class="w-full h-40 object-cover" 
+                             alt="${data.title}"
+                             loading="lazy">
+                        <div class="p-4">
+                            <span class="text-xs text-red-600 font-semibold uppercase">${data.category || 'Berita'}</span>
+                            <h3 class="font-bold mt-1 mb-2 line-clamp-2">
+                                <a href="${beritaUrl}" class="text-gray-800 hover:text-red-600">
+                                    ${data.title}
+                                </a>
+                            </h3>
+                            <p class="text-gray-500 text-xs">
+                                ${data.createdAt?.toDate().toLocaleDateString('id-ID') || ''}
+                            </p>
+                        </div>
+                    </div>
+                `;
+                
+                count++;
+            });
+            
+            if (count === 0) {
+                grid.innerHTML = '<p class="col-span-3 text-center text-gray-500">Belum ada artikel lainnya.</p>';
+            }
+            
+        } catch (error) {
+            console.error("Gagal load artikel terkait:", error);
+            grid.innerHTML = '<p class="col-span-3 text-center text-gray-500">Gagal memuat artikel terkait.</p>';
+        }
+    }
+
+    // === FUNGSI: SETUP SHARE BUTTONS ===
+    function setupShareButtons(title, url) {
+        const encodedUrl = encodeURIComponent(url);
+        const encodedTitle = encodeURIComponent(title);
+        
+        // Facebook
+        const fbBtn = document.getElementById('share-facebook');
+        if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        
+        // Twitter
+        const twBtn = document.getElementById('share-twitter');
+        if (twBtn) twBtn.href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+        
+        // WhatsApp
+        const waBtn = document.getElementById('share-whatsapp');
+        if (waBtn) waBtn.href = `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`;
+        
+        // Copy Link
+        const copyBtn = document.getElementById('copy-link');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(url).then(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Tersalin!';
+                    copyBtn.classList.add('bg-green-500');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-link mr-2"></i> Salin Link';
+                        copyBtn.classList.remove('bg-green-500');
+                    }, 2000);
+                });
+            });
         }
     }
 
@@ -103,20 +330,79 @@ title: Detail Artikel
 
 <style>
     /* Mengatur style tulisan HTML di dalam artikel (Quill editor output) */
+    .prose {
+        font-size: 1.125rem;
+        line-height: 1.8;
+    }
     .prose img {
         max-width: 100%;
         height: auto;
         border-radius: 1rem;
-        margin: 1.5rem auto;
+        margin: 2rem auto;
         display: block;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
     .prose p {
-        margin-bottom: 1.25rem;
-        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
         color: #374151;
+    }
+    .prose h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: #1f2937;
+    }
+    .prose h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: #374151;
+    }
+    .prose a {
+        color: #dc2626;
+        text-decoration: underline;
+    }
+    .prose ul, .prose ol {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+    }
+    .prose blockquote {
+        border-left: 4px solid #dc2626;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        color: #6b7280;
+        font-style: italic;
     }
     .ql-align-justify {
         text-align: justify;
     }
+    .ql-align-center {
+        text-align: center;
+    }
+    .ql-align-right {
+        text-align: right;
+    }
+    
+    /* Line clamp untuk judul artikel terkait */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Animasi loading */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    #konten-berita:not(.hidden) {
+        animation: fadeIn 0.5s ease-out;
+    }
 </style>
+
+<!-- Font Awesome untuk icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
