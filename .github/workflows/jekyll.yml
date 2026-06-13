@@ -1,0 +1,24 @@
+name: Deploy Jekyll to Firebase Hosting
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Build Jekyll
+        run: |
+          gem install jekyll bundler
+          bundle install
+          bundle exec jekyll build
+      - name: Deploy to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SIOMAIMAGELANG }}'
+          projectId: siomaimagelang
