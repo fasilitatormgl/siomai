@@ -57,7 +57,7 @@ Untuk kemudahan cetak dan distribusi, standar harga juga tersedia dalam format P
        class="inline-flex items-center gap-2 bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition">
         <i class="fas fa-download"></i> Download PDF
     </a>
-    <a href="{{ site.baseurl }}/assets/dokumen/standar-harga-prodamai.pdf" target="_blank" 
+    <a href="{{ site.baseurl }}/assets/dokumen/Salinan-Perwal-Prodamai.pdf" target="_blank" 
        class="inline-flex items-center gap-2 bg-yellow-600 text-white px-5 py-2 rounded-full hover:bg-yellow-700 transition">
         <i class="fas fa-eye"></i> Lihat PDF (Tab Baru)
     </a>
