@@ -254,16 +254,18 @@ background-position: center;
 
 <style>
     body {
-        /* Ganti 'bg-global.png' dengan nama file gambar Anda */
-        background-image: url('{{ site.baseurl }}/assets/images/bg-global.webp');
-    
+        /* 
+          rgba(0,0,0, 0.8) artinya warna hitam dengan transparansi 80%.
+          Semakin mendekati 1.0, akan semakin gelap/hitam pekat.
+          Semakin mendekati 0.1, akan semakin terang (gambar makin terlihat).
+        */
+        background: 
+            linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+            url('{{ site.baseurl }}/assets/images/bg-global.png'); /* Ganti dengan gambar background web Anda */
         
-        /* JIKA gambarnya besar dan ingin memenuhi layar (seperti wallpaper), 
-           hapus 'background-repeat: repeat;' dan gunakan 2 baris di bawah ini: */
-        background-size: cover; */
-        background-position: center; */
-        /* Membuat background tetap diam (tidak ikut naik) saat web di-scroll */
-        background-attachment: fixed; 
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Agar background diam saat web di-scroll */
     }
     /* Progress bar animation */
     .progress-bar-animate {
