@@ -397,20 +397,25 @@ title: Detail Artikel
 </script>
 
 <style>
-    body {
-        /* 
-          rgba(0,0,0, 0.8) artinya warna hitam dengan transparansi 80%.
-          Semakin mendekati 1.0, akan semakin gelap/hitam pekat.
-          Semakin mendekati 0.1, akan semakin terang (gambar makin terlihat).
-        */
-        background: 
-            linear-gradient(rgba(192,192,192,0.8), rgba(192,192,192,0.8)),
-            url('{{ site.baseurl }}/assets/images/bg-global.webp'); /* Ganti dengan gambar background web Anda */
-        
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed; /* Agar background diam saat web di-scroll */
-    }
+     body {
+    /* Gunakan background-image agar lebih rapi */
+    background-image: 
+        linear-gradient(rgba(192,192,192,0.8), rgba(192,192,192,0.8)),
+        url('{{ site.baseurl }}/assets/images/bg-global.webp');
+    
+    background-size: cover;
+    
+    /* PENTING: Gradasi tetap di atas (0px), Gambar turun sejauh (107px) */
+    background-position: center 0px, center 100px; 
+    
+    background-attachment: fixed; 
+    
+    /* Mencegah gambar berulang (tiling) di area kosong 107px paling atas */
+    background-repeat: no-repeat; 
+    
+    /* Memberikan warna dasar abu-abu pada sisa ruang 107px di atas gambar */
+    background-color: rgb(192, 192, 192); 
+}
     .prose {
         font-size: 1.125rem;
         line-height: 1.8;
