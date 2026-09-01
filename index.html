@@ -253,6 +253,18 @@ background-position: center;
 </script>
 
 <style>
+    body {
+        /* Ganti 'bg-global.png' dengan nama file gambar Anda */
+        background-image: url('{{ site.baseurl }}/assets/images/bg-global.webp');
+    
+        
+        /* JIKA gambarnya besar dan ingin memenuhi layar (seperti wallpaper), 
+           hapus 'background-repeat: repeat;' dan gunakan 2 baris di bawah ini: */
+        background-size: cover; */
+        background-position: center; */
+        /* Membuat background tetap diam (tidak ikut naik) saat web di-scroll */
+        background-attachment: fixed; 
+    }
     /* Progress bar animation */
     .progress-bar-animate {
         background: linear-gradient(90deg, #dc2626, #f59e0b, #dc2626);
