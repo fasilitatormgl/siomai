@@ -65,23 +65,43 @@ background-position: center;
         <h2 class="text-3xl font-bold text-white-800">📸 Dokumentasi Terbaru</h2>
         <a href="{{ site.baseurl }}/foto" class="text-red-600 hover:text-red-800 font-semibold flex items-center gap-1">Lihat Semua <i class="fas fa-arrow-right"></i></a>
     </div>
-    <div class="carousel-container relative overflow-hidden rounded-2xl shadow-xl">
+    <div class="carousel-container relative overflow-hidden rounded-2xl shadow-xl select-none">
         <div class="carousel-track flex transition-transform duration-500 ease-in-out" id="carouselTrack">
-            {% for photo in site.data.photos limit:5 %}
+            {% for photo in site.data.photos %}
             <div class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-2">
-                <div class="bg-white rounded-xl overflow-hidden shadow-md">
-                    <img src="{{ site.baseurl }}/assets/images/dokumentasi/{{ photo.file }}" class="w-full h-56 object-cover" loading="lazy" alt="{{ photo.caption }}">
+                <div class="photo-card bg-white rounded-xl overflow-hidden shadow-md cursor-pointer group" 
+                     data-src="{{ site.baseurl }}/assets/images/dokumentasi/{{ photo.file }}" 
+                     data-caption="{{ photo.caption | escape }}">
+                    <div class="relative overflow-hidden">
+                        <img src="{{ site.baseurl }}/assets/images/dokumentasi/{{ photo.file }}" class="w-full h-56 object-cover pointer-events-none group-hover:scale-105 transition duration-500" loading="lazy" alt="{{ photo.caption }}">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition flex items-center justify-center">
+                            <span class="opacity-0 group-hover:opacity-100 bg-white/90 text-gray-800 p-2.5 rounded-full shadow-lg transition transform scale-75 group-hover:scale-100">
+                                <i class="fas fa-search-plus text-red-600"></i>
+                            </span>
+                        </div>
+                    </div>
                     <div class="p-3 text-center text-sm text-gray-600">{{ photo.caption }}</div>
                 </div>
             </div>
             {% endfor %}
         </div>
-        <button id="prevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-lg hover:bg-white" aria-label="Sebelumnya">
+        <button id="prevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-lg hover:bg-white z-10" aria-label="Sebelumnya">
             <i class="fas fa-chevron-left text-red-600"></i>
         </button>
-        <button id="nextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-lg hover:bg-white" aria-label="Selanjutnya">
+        <button id="nextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-lg hover:bg-white z-10" aria-label="Selanjutnya">
             <i class="fas fa-chevron-right text-red-600"></i>
         </button>
+    </div>
+</div>
+
+<!-- Lightbox Modal untuk Foto -->
+<div id="photoLightbox" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300" role="dialog" aria-modal="true">
+    <button id="closeLightboxBtn" class="absolute top-5 right-5 bg-white/15 hover:bg-red-600 text-white rounded-full w-11 h-11 flex items-center justify-center text-xl transition shadow-lg" aria-label="Tutup">
+        <i class="fas fa-times"></i>
+    </button>
+    <div class="max-w-4xl w-full flex flex-col items-center">
+        <img id="lightboxImage" src="" alt="" class="max-h-[80vh] w-auto max-w-full object-contain rounded-xl shadow-2xl">
+        <p id="lightboxCaption" class="mt-4 text-white text-center text-base md:text-lg font-medium bg-black/50 px-5 py-2 rounded-full"></p>
     </div>
 </div>
 
@@ -328,21 +348,33 @@ background-position: center;
 </style>
 
 <script>
-    // === CAROUSEL LOGIC ===
+    // === CAROUSEL & LIGHTBOX LOGIC ===
     (function() {
         const track = document.getElementById('carouselTrack');
         if (!track) return;
         
-        const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+        const slides = Array.from(track.querySelectorAll('.carousel-slide'));
         if (slides.length === 0) return;
+
+        // 1. Acak urutan seluruh foto saat halaman dimuat (Fisher-Yates Shuffle)
+        for (let i = slides.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [slides[i], slides[j]] = [slides[j], slides[i]];
+        }
+        slides.forEach(slide => track.appendChild(slide));
         
+        const carouselContainer = document.querySelector('.carousel-container');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         let currentIndex = 0;
         let slidesToShow = window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
         const totalSlides = slides.length;
+        let autoPlay;
+        let isSwiping = false;
 
         function updateCarousel() {
+            const maxIndex = Math.max(0, totalSlides - slidesToShow);
+            if (currentIndex > maxIndex) currentIndex = maxIndex;
             const slideWidth = slides[0]?.offsetWidth || 0;
             track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
         }
@@ -360,29 +392,123 @@ background-position: center;
             if (currentIndex > 0) {
                 currentIndex--;
             } else {
-                currentIndex = totalSlides - slidesToShow;
+                currentIndex = Math.max(0, totalSlides - slidesToShow);
             }
             updateCarousel();
         }
+
+        function startAutoPlay() {
+            clearInterval(autoPlay);
+            autoPlay = setInterval(nextSlide, 4000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlay);
+        }
         
         if (prevBtn && nextBtn) {
-            nextBtn.addEventListener('click', nextSlide);
-            prevBtn.addEventListener('click', prevSlide);
-            
-            let autoPlay = setInterval(nextSlide, 4000);
-            
-            const carouselContainer = document.querySelector('.carousel-container');
-            carouselContainer?.addEventListener('mouseenter', () => clearInterval(autoPlay));
-            carouselContainer?.addEventListener('mouseleave', () => {
-                autoPlay = setInterval(nextSlide, 4000);
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                startAutoPlay();
             });
-            
-            window.addEventListener('resize', () => {
-                slidesToShow = window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
-                updateCarousel();
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                startAutoPlay();
             });
-            
-            updateCarousel();
         }
+
+        if (carouselContainer) {
+            carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+            carouselContainer.addEventListener('mouseleave', () => {
+                if (lightbox && lightbox.classList.contains('hidden')) {
+                    startAutoPlay();
+                }
+            });
+
+            // 2. Dukungan Swipe Sentuh Layar HP
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            carouselContainer.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                isSwiping = false;
+                stopAutoPlay();
+            }, { passive: true });
+
+            carouselContainer.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const swipeDistance = touchStartX - touchEndX;
+                if (Math.abs(swipeDistance) > 20) {
+                    isSwiping = true;
+                }
+                if (swipeDistance > 50) {
+                    nextSlide();
+                } else if (swipeDistance < -50) {
+                    prevSlide();
+                }
+                if (lightbox && lightbox.classList.contains('hidden')) {
+                    startAutoPlay();
+                }
+            }, { passive: true });
+        }
+
+        // 3. Lightbox Modal (Klik Foto untuk Tampilan Penuh)
+        const lightbox = document.getElementById('photoLightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+
+        function openLightbox(src, caption) {
+            if (!lightbox) return;
+            lightboxImage.src = src;
+            lightboxImage.alt = caption || 'Dokumentasi';
+            lightboxCaption.textContent = caption || '';
+            lightboxCaption.style.display = caption ? 'block' : 'none';
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            stopAutoPlay();
+        }
+
+        function closeLightbox() {
+            if (!lightbox) return;
+            lightbox.classList.add('hidden');
+            lightboxImage.src = '';
+            document.body.style.overflow = '';
+            startAutoPlay();
+        }
+
+        track.querySelectorAll('.photo-card').forEach(card => {
+            card.addEventListener('click', () => {
+                if (isSwiping) {
+                    isSwiping = false;
+                    return;
+                }
+                openLightbox(card.dataset.src, card.dataset.caption);
+            });
+        });
+
+        if (closeLightboxBtn) {
+            closeLightboxBtn.addEventListener('click', closeLightbox);
+        }
+
+        if (lightbox) {
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
+                closeLightbox();
+            }
+        });
+        
+        window.addEventListener('resize', () => {
+            slidesToShow = window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+            updateCarousel();
+        });
+        
+        updateCarousel();
+        startAutoPlay();
     })();
 </script>
